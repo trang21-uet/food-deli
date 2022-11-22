@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Settings, MainScreen, Login, Register } from './src';
+import { ForgotPassword } from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -9,7 +10,6 @@ const theme = {
   colors: {
     primary: '#fd7a5c',
     background: '#f3f4f8',
-    // background: '#fff',
     text: '#000',
     card: '#fff',
     white: '#fff',
@@ -28,6 +28,7 @@ export default function App() {
         <Stack.Screen name='Settings' component={Settings} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
+        <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );
