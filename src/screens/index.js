@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import Home from './home';
 import Search from './search';
 import Settings from './settings';
-import { Cart, CouponList, OrderList, RestaurantList } from './food';
+import { Cart, CouponList, RestaurantList } from './food';
 import { Login, Register, ForgotPassword } from './auth';
 import Nav from './Nav';
 
@@ -17,7 +17,6 @@ export default function MainScreen() {
         <Tab.Screen name='Search' component={Search} />
         <Tab.Screen name='Cart' component={Cart} />
         <Tab.Screen name='CouponList' component={CouponList} />
-        <Tab.Screen name='OrderList' component={OrderList} />
         <Tab.Screen name='RestaurantList' component={RestaurantList} />
       </Tab.Navigator>
       <Nav />
