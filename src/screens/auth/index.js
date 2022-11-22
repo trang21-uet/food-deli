@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useState } from 'react';
 import { MyButton, MyIcon, MyInput } from '../../components';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -11,7 +17,11 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <MyIcon name='close' size={40} style={styles.closeBtn} />
+      <View style={styles.closeBtn}>
+        <TouchableOpacity onPress={nav.goBack}>
+          <MyIcon name='close' size={40} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>Đăng nhập</Text>
       <MyInput style={styles.input} placeholder='Email' />
       <Text style={styles.errorText}>{errors[0]}</Text>
@@ -46,7 +56,11 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <MyIcon name='close' size={40} style={styles.closeBtn} />
+      <View style={styles.closeBtn}>
+        <TouchableOpacity onPress={nav.goBack}>
+          <MyIcon name='close' size={40} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>Đăng ký tài khoản</Text>
       <MyInput style={[styles.input, { borderWidth: 1 }]} placeholder='Email' />
       {errors[0] && <Text style={styles.errorText}>{errors[0]}</Text>}
@@ -82,7 +96,11 @@ const ForgotPassword = () => {
 
   return (
     <View style={styles.container}>
-      <MyIcon name='close' size={40} style={styles.closeBtn} />
+      <View style={styles.closeBtn}>
+        <TouchableOpacity onPress={nav.goBack}>
+          <MyIcon name='close' size={40} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>Lấy lại mật khẩu</Text>
       <Text style={{ marginVertical: 5 }}>
         Nhập email tài khoản để đặt lại mật khẩu
@@ -144,7 +162,7 @@ const getStyles = colors =>
     },
     closeBtn: {
       position: 'absolute',
-      top: 25,
+      top: 0,
       right: 0,
       padding: 15,
     },
