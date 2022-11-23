@@ -13,17 +13,28 @@ const ItemDish = () => {
           resizeMode={"contain"}
         />
       </View>
+      <View style={styles.info}>
+        <Text style={styles.name}>Phở Hà Nội</Text>
+        <Text style={styles.restaurant}>Vinmart</Text>
+        <Text style={styles.price}>40.000 Đ</Text>
+        <View style={styles.footer}>
+          <View style={styles.box}>
+            <Ionicons size={14} color={"gray"} name="ios-time-outline" />
+            <Text style={{ color: "gray" }}> 20-40 phút</Text>
+          </View>
+          <View style={styles.box}>
+            <Feather name="star" color={"gray"} size={14} />
+            <Text style={{ color: "gray" }}> 4.5</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    height: 100,
-    width: width - 50,
     backgroundColor: "white",
     alignItems: "center",
-    margin: 10,
     borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: {
@@ -33,38 +44,40 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    paddingVertical: 10,
     overflow: "hidden",
   },
   name: {
     fontSize: 20,
+    marginTop: 5,
     fontWeight: "bold",
   },
   price: {
     fontSize: 18,
-    marginRight: 5,
     color: "#fc795d",
+    marginBottom: 5,
   },
   box: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 5,
   },
   restaurant: {
     color: "gray",
-    marginVertical: 4,
   },
   footer: {
     flexDirection: "row",
-    alignItems: "flex-end",
+    justifyContent: "space-between",
   },
   info: {
-    flex: 1,
-    paddingHorizontal: 20,
+    width: "100%",
+    paddingHorizontal: 15,
   },
-  containerImage: {},
+  containerImage: {
+    marginTop: 5,
+  },
   image: {
-    height: 100,
-    width: 100,
+    height: 150,
+    width: 150,
   },
 });
 export default ItemDish;

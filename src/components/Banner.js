@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLOR } from "../constants/Color";
-import { FONT } from "../constants/Typography";
 import { WIDTH } from "../constants/Dimension";
 
 const Banner = () => {
@@ -10,9 +9,9 @@ const Banner = () => {
       <View style={styles.bannerContainer}>
         <View style={styles.center}>
           <View style={styles.text}>
-            <Text style={FONT.contentTitle}>The Fastest In</Text>
-            <Text style={FONT.contentTitle}>
-              Delivery <Text style={styles.red}>Food</Text>
+            <Text>Tìm kiếm món ăn</Text>
+            <Text>
+              cùng <Text style={styles.red}>Food</Text>
             </Text>
           </View>
         </View>
