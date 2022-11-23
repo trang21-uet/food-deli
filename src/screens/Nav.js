@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import React from 'react';
-import { MyIcon } from '../components';
+import { MyIcon, Pill } from '../components';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 export default function Nav() {
@@ -23,16 +23,21 @@ const NavButton = ({ icon, screen }) => {
   const styles = getStyles(colors);
   const nav = useNavigation();
   return (
-    <View style={styles.button}>
-      <TouchableNativeFeedback
-        onPress={() => nav.navigate(screen)}
-        background={TouchableNativeFeedback.Ripple(colors.primary, true)}
-      >
-        <View style={{ padding: 15 }}>
-          <MyIcon size={25} name={icon} outline color={colors.text} />
-        </View>
-      </TouchableNativeFeedback>
-    </View>
+    <Pill
+      style={styles.button}
+      borderRadius={15}
+      onPress={() => nav.navigate(screen)}
+      noShadow
+      ripple={colors.primary}
+    >
+      <MyIcon
+        size={25}
+        name={icon}
+        outline
+        color={colors.text}
+        style={{ padding: 15 }}
+      />
+    </Pill>
   );
 };
 
@@ -40,11 +45,6 @@ const getStyles = colors =>
   StyleSheet.create({
     nav: {
       width: '100%',
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignItems: 'center',
