@@ -1,5 +1,6 @@
-import { View, Text, TouchableNativeFeedback } from 'react-native';
+import { View, TouchableNativeFeedback } from 'react-native';
 import React from 'react';
+import { useTheme } from '@react-navigation/native';
 
 export default function Pill({
   borderRadius,
@@ -11,6 +12,7 @@ export default function Pill({
   style,
   children,
 }) {
+  const { colors } = useTheme();
   return (
     <View
       style={[
@@ -20,7 +22,7 @@ export default function Pill({
           marginVertical,
         },
         !noShadow && {
-          shadowColor: '#000',
+          shadowColor: colors.black,
           shadowOffset: {
             width: 0,
             height: 2,
@@ -33,7 +35,7 @@ export default function Pill({
     >
       <TouchableNativeFeedback
         onPress={onPress}
-        background={TouchableNativeFeedback.Ripple(ripple || '#ccc', true)}
+        background={TouchableNativeFeedback.Ripple(ripple || colors.gray, true)}
       >
         <View {...style}>{children}</View>
       </TouchableNativeFeedback>

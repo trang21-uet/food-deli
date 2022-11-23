@@ -1,7 +1,7 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@react-navigation/native';
-import { Header, Pill, Restaurant } from '../../components';
+import { Pill, Restaurant } from '../../components';
 
 const data = [
   {
@@ -188,7 +188,6 @@ const data = [
 
 export default function RestaurantList() {
   const { colors } = useTheme();
-  const styles = getStyles(colors);
   const [selected, setSelected] = useState('All');
   const [items, setItems] = useState(data[0].items);
 
@@ -198,67 +197,57 @@ export default function RestaurantList() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header />
-      <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingVertical: 10,
-          }}
-        >
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {data.map(res => (
-              <Pill
-                key={res.category}
-                borderRadius={15}
-                marginHorizontal={10}
-                onPress={() => setSelected(res.category)}
-                ripple={colors.primary}
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingVertical: 10,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {data.map(res => (
+            <Pill
+              key={res.category}
+              borderRadius={15}
+              marginHorizontal={10}
+              marginVertical={5}
+              onPress={() => setSelected(res.category)}
+              ripple={colors.primary}
+              style={{
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+                backgroundColor:
+                  res.category == selected ? colors.primary : colors.white,
+              }}
+            >
+              <Text
                 style={{
-                  paddingHorizontal: 15,
-                  paddingVertical: 10,
-                  backgroundColor:
-                    res.category == selected ? colors.primary : colors.white,
+                  fontSize: 16,
+                  color: res.category == selected ? colors.white : colors.text,
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color:
-                      res.category == selected ? colors.white : colors.text,
-                  }}
-                >
-                  {res.category}
-                </Text>
-              </Pill>
-            ))}
-          </ScrollView>
-        </View>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            marginVertical: 10,
-            marginStart: 20,
-          }}
-        >
-          Nhà hàng
-        </Text>
-        <ScrollView style={{ flex: 1 }}>
-          <View style={{ paddingHorizontal: 20 }}>
-            {items.map((item, index) => (
-              <Restaurant key={index} {...item} />
-            ))}
-          </View>
+                {res.category}
+              </Text>
+            </Pill>
+          ))}
         </ScrollView>
       </View>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginVertical: 10,
+          marginStart: 20,
+        }}
+      >
+        Nhà hàng
+      </Text>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ paddingHorizontal: 20 }}>
+          {items.map((item, index) => (
+            <Restaurant key={index} {...item} />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 }
-
-const getStyles = colors =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });

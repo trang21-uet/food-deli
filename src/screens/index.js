@@ -3,17 +3,25 @@ import { View } from 'react-native';
 import Home from './home';
 import Search from './search';
 import Settings from './settings';
-import { Cart, CouponList, RestaurantList } from './food';
+import { Cart, CheckoutScreen, CouponList, RestaurantList } from './food';
 import { Login, Register, ForgotPassword } from './auth';
 import Nav from './Nav';
+import { Header } from '../components';
 
 const Tab = createNativeStackNavigator();
 
 export default function MainScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name='Home' component={Home} />
+      <Tab.Navigator
+        initialRouteName='Home'
+        screenOptions={{ header: () => <Header /> }}
+      >
+        <Tab.Screen
+          name='Home'
+          component={Home}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name='Search' component={Search} />
         <Tab.Screen name='Cart' component={Cart} />
         <Tab.Screen name='CouponList' component={CouponList} />

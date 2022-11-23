@@ -36,14 +36,14 @@ export default function Restaurant({
           <Text style={{ fontSize: 16, fontWeight: '500' }}>{name}</Text>
           <Text style={{ fontSize: 13, color: '#777' }}>{description}</Text>
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ width: 60 }}>
             <Text>{distance} km</Text>
           </View>
           <MyIcon
             name='star'
             color={colors.primary}
-            size={20}
+            size={16}
             style={{ marginStart: 20, marginEnd: 5 }}
           />
           <Text>{rating}</Text>
