@@ -4,22 +4,42 @@ import {
   View,
   TouchableNativeFeedback,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import Banner from "../../components/Banner";
 import SearchBar from "../../components/SearchBar";
 import Categories from "../../components/Categories";
+import ItemDish from "../../components/ItemDish";
+import ButtonAll from "../../components/ButtonAll";
 export default function Home() {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Banner />
       <SearchBar />
       <Categories />
-      <View style={styles.card}></View>
-    </View>
+      <View style={{ marginTop: 15 }}>
+        <ButtonAll title={"ĐANG HOT"} />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
+        </ScrollView>
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <ButtonAll title={"MỚI NHẤT"} />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
 
