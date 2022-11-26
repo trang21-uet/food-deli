@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, FlatList, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ScrollView,
+  Button,
+} from "react-native";
 import React from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import Banner from "../../components/Banner";
@@ -7,7 +14,7 @@ import Categories from "../../components/Categories";
 import ItemDish from "../../components/ItemDish";
 import ItemDish2 from "../../components/ItemDish2";
 import ButtonAll from "../../components/ButtonAll";
-export default function Home() {
+export default function Home({ navigation }) {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   return (
@@ -18,7 +25,7 @@ export default function Home() {
       <View style={{ marginTop: 10 }}>
         <ButtonAll title={"ĐANG HOT"} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <ItemDish />
+          <ItemDish navigation={navigation} />
           <ItemDish />
           <ItemDish />
           <ItemDish />

@@ -1,11 +1,21 @@
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 const width = Dimensions.get("window").width;
-const ItemDish = () => {
+const ItemDish = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.push("Detail")}
+    >
       <View style={styles.info}>
         <Text style={styles.name}>Phở Hà Nội</Text>
         <Text style={styles.restaurant}>Vinmart</Text>
@@ -28,7 +38,7 @@ const ItemDish = () => {
           resizeMode={"contain"}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
