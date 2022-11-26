@@ -1,71 +1,92 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
-import { COLOR } from "../constants/Color";
-const ItemCounpon = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.containerLeft}>
-        <View style={{ flex: 1 }}>
-          <Text>Giảm 15 % giá tất cả sản phẩm</Text>
-        </View>
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { useTheme } from '@react-navigation/native';
+import Pill from './Pill';
+import MyButton from './MyButton';
 
-        <View>
-          <View style={styles.button}>
-            <Text style={{ color: "white" }}>Lưu mã giảm giá</Text>
-          </View>
+const ItemCounpon = () => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
+  return (
+    <Pill
+      marginVertical={10}
+      marginHorizontal={10}
+      borderRadius={10}
+      style={styles.container}
+    >
+      <View style={styles.containerLeft}>
+        <Text>Giảm 15 % tất cả sản phẩm</Text>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+          }}
+        >
+          <MyButton
+            style={styles.button}
+            textStyle={{ color: colors.white }}
+            title='Áp dụng'
+          />
+          <TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 13,
+                color: colors.gray,
+                textDecorationLine: 'underline',
+              }}
+            >
+              Điều kiện
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.containerRight}>
         <Image
           style={styles.image}
-          source={require("../assets/images/restaurantlogo.png")}
-          resizeMode={"contain"}
+          source={require('../assets/images/restaurantlogo.png')}
+          resizeMode={'contain'}
         />
       </View>
-    </View>
+    </Pill>
   );
 };
 
 export default ItemCounpon;
 
-const styles = StyleSheet.create({
-  image: {
-    height: 80,
-    width: 80,
-  },
-  containerLeft: {
-    flex: 2,
-    borderStyle: "dashed",
-    borderRightWidth: 1,
-    borderColor: "gray",
-  },
-  containerRight: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  container: {
-    flexDirection: "row",
-    padding: 10,
-    justifyContent: "space-between",
-    backgroundColor: "white",
-    margin: 10,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
+const getStyles = colors =>
+  StyleSheet.create({
+    image: {
+      height: 80,
+      width: 80,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  button: {
-    padding: 10,
-    alignSelf: "flex-start",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: "#fd795c",
-    borderRadius: 5,
-  },
-});
+    containerLeft: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderStyle: 'dashed',
+      borderRightWidth: 1,
+      borderColor: colors.gray,
+      paddingEnd: 10,
+    },
+    containerRight: {
+      paddingStart: 10,
+    },
+    container: {
+      flexDirection: 'row',
+      padding: 10,
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      borderRadius: 10,
+    },
+    button: {
+      padding: 10,
+      alignSelf: 'flex-start',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      backgroundColor: colors.primary,
+      borderRadius: 5,
+    },
+  });

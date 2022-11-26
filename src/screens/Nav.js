@@ -24,9 +24,9 @@ const NavButton = ({ icon, screen }) => {
   const nav = useNavigation();
   return (
     <Pill
-      style={styles.button}
-      borderRadius={15}
+      borderRadius={20}
       onPress={() => nav.navigate(screen)}
+      style={styles.button}
       noShadow
       ripple={colors.primary}
     >
@@ -35,7 +35,7 @@ const NavButton = ({ icon, screen }) => {
         name={icon}
         outline
         color={colors.text}
-        style={{ padding: 15 }}
+        style={{ padding: 10 }}
       />
     </Pill>
   );

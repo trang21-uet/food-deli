@@ -18,12 +18,15 @@ export default function Home({ navigation }) {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{ flex: 1 }}>
       <Banner />
-      <SearchBar />
+      <SearchBar
+        placeholder='Tìm kiếm món ăn...'
+        style={{ marginTop: -26, paddingHorizontal: 20 }}
+      />
       <Categories />
-      <View style={{ marginTop: 10 }}>
-        <ButtonAll title={"ĐANG HOT"} />
+      <View style={{ marginVertical: 10 }}>
+        <AllButton title={'Bán chạy nhất'} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <ItemDish navigation={navigation} />
           <ItemDish />
@@ -32,8 +35,8 @@ export default function Home({ navigation }) {
           <ItemDish />
         </ScrollView>
       </View>
-      <View style={{ marginTop: 10 }}>
-        <ButtonAll title={"MỚI NHẤT"} />
+      <View style={{ marginVertical: 10 }}>
+        <AllButton title={'Mới nhất'} />
         <FlatList
           data={[1, 2, 2, 2]}
           numColumns={2}
@@ -43,11 +46,11 @@ export default function Home({ navigation }) {
               <View
                 style={{
                   flex: 1,
-                  padding: 8,
-                  maxWidth: lastItem ? "50%" : "100%",
+                  paddingHorizontal: 5,
+                  maxWidth: lastItem ? '50%' : '100%',
                 }}
               >
-                <ItemDish2 />
+                <VerticalDish />
               </View>
             );
           }}
@@ -57,46 +60,62 @@ export default function Home({ navigation }) {
   );
 }
 
-const getStyles = (colors) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-    },
+const AllButton = ({ title }) => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
 
-    search: {
-      width: "auto",
-      top: 170,
-      left: 30,
-      right: 30,
-    },
-    searchBox: {
-      backgroundColor: colors.white,
-      fontSize: 15,
-    },
-    searchBtn: {
-      position: "absolute",
-      top: 14,
-      right: 10,
-    },
+  return (
+    <View style={styles.row}>
+      <Text style={styles.name}>{title}</Text>
+      <View
+        style={{
+          borderTopLeftRadius: 20,
+          borderBottomLeftRadius: 20,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
+      >
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple(colors.gray, true)}
+        >
+          <View style={styles.button}>
+            <Text style={{ color: colors.gray }}>All </Text>
+            <MyIcon size={20} color={colors.gray} name={'arrow-forward'} />
+          </View>
+        </TouchableNativeFeedback>
+      </View>
+    </View>
+  );
+};
+
+const getStyles = colors =>
+  StyleSheet.create({
     row: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    foodBtn: {
-      flexDirection: "column",
-      alignItems: "center",
-      margin: 10,
-    },
-    foodBtnImage: {
-      width: 60,
-      height: 60,
-      borderRadius: 5,
-      backgroundColor: "#ccc",
-    },
-    card: {
       flex: 1,
-      height: 100,
-      backgroundColor: colors.card,
-      marginHorizontal: 30,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginVertical: 10,
+    },
+    name: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginLeft: 15,
+    },
+    button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.white,
+      paddingStart: 20,
+      paddingEnd: 10,
+      paddingVertical: 10,
+      borderTopLeftRadius: 20,
+      borderBottomLeftRadius: 20,
     },
   });

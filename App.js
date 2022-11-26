@@ -1,3 +1,4 @@
+
 import { StatusBar, Platform, View, Button, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -6,17 +7,21 @@ import { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { Settings, MainScreen, Login, Register, Detail } from "./src";
 import { ForgotPassword } from "./src/screens";
+import { CheckoutScreen } from './src/screens/food';
 const Stack = createNativeStackNavigator();
 
 const theme = {
   dark: false,
   colors: {
-    primary: "#fd7a5c",
-    background: "#f3f4f8",
-    text: "#000",
-    card: "#fff",
-    white: "#fff",
-    black: "#000",
+    primary: '#fd7a5c',
+    background: '#f3f4f8',
+    text: '#000',
+    card: '#fff',
+    white: 'white',
+    black: 'black',
+    gray: 'gray',
+    yellow: '#ffe2da',
+    red: '#E81514',
   },
 };
 SplashScreen.preventAutoHideAsync();
@@ -60,6 +65,11 @@ export default function App() {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Detail" component={Detail} />
+          <Stack.Screen
+            name='CheckoutScreen'
+            component={CheckoutScreen}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

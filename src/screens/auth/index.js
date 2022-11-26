@@ -137,8 +137,9 @@ const getStyles = colors =>
     },
     input: {
       marginTop: 10,
-      borderColor: '#f00',
-      borderWidth: 1,
+      // borderColor: '#f00',
+      // borderWidth: 1,
+      backgroundColor: '#fff',
     },
     button: {
       width: '100%',
