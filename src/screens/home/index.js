@@ -4,18 +4,19 @@ import {
   View,
   FlatList,
   ScrollView,
-  TouchableNativeFeedback,
-} from 'react-native';
-import React from 'react';
-import { useTheme } from '@react-navigation/native';
-import { VerticalDish } from '../../components';
-import SearchBar from '../../components/SearchBar';
-import Categories from './Categories';
-import HorizontalDish from '../../components/ItemDish';
-import { MyIcon } from '../../components';
-import Banner from './Banner';
-
-export default function Home() {
+  Button,
+} from "react-native";
+import React from "react";
+import { useNavigation, useTheme } from "@react-navigation/native";
+import Banner from "../../components/Banner";
+import SearchBar from "../../components/SearchBar";
+import Categories from "../../components/Categories";
+import ItemDish from "../../components/ItemDish";
+import ItemDish2 from "../../components/ItemDish2";
+import ButtonAll from "../../components/ButtonAll";
+export default function Home({ navigation }) {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   return (
     <ScrollView style={{ flex: 1 }}>
       <Banner />
@@ -27,11 +28,11 @@ export default function Home() {
       <View style={{ marginVertical: 10 }}>
         <AllButton title={'Bán chạy nhất'} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <HorizontalDish />
-          <HorizontalDish />
-          <HorizontalDish />
-          <HorizontalDish />
-          <HorizontalDish />
+          <ItemDish navigation={navigation} />
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
+          <ItemDish />
         </ScrollView>
       </View>
       <View style={{ marginVertical: 10 }}>

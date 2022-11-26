@@ -1,19 +1,21 @@
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-import MyIcon from './MyIcon';
-import { useTheme } from '@react-navigation/native';
-import Pill from './Pill';
-
-const width = Dimensions.get('window').width;
-
-const HorizontalDish = () => {
-  const { colors } = useTheme();
-  const styles = getStyles(colors);
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
+const width = Dimensions.get("window").width;
+const ItemDish = ({ navigation }) => {
   return (
-    <Pill marginHorizontal={10} borderRadius={20} style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.push("Detail")}
+    >
       <View style={styles.info}>
         <Text style={styles.name}>Phở Hà Nội</Text>
         <Text style={styles.restaurant}>Vinmart</Text>
@@ -25,12 +27,14 @@ const HorizontalDish = () => {
           </View>
         </View>
       </View>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/phohanoi.jpg')}
-        resizeMode={'contain'}
-      />
-    </Pill>
+      <View style={styles.containerImage}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/phohanoi.jpg")}
+          resizeMode={"contain"}
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 const getStyles = colors =>
