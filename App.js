@@ -4,7 +4,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
-import { Settings, MainScreen, Login, Register, Detail } from "./src";
+import {
+  Settings,
+  MainScreen,
+  Login,
+  Register,
+  Detail,
+  OrderManagement,
+  OrderDetail,
+} from "./src";
 import { ForgotPassword } from "./src/screens";
 const Stack = createNativeStackNavigator();
 
@@ -50,16 +58,39 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{ headerShown: false }}
-        >
+        <Stack.Navigator initialRouteName="OrderDetail">
           <Stack.Screen name="MainScreen" component={MainScreen} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Detail" component={Detail} />
+          <Stack.Screen
+            name="OrderManagement"
+            options={{
+              title: "Quản lý đơn hàng",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+                fontWeight: "200",
+              },
+            }}
+            component={OrderManagement}
+          />
+          <Stack.Screen
+            name="OrderDetail"
+            options={{
+              title: "Thông tin đơn hàng",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+                fontWeight: "200",
+              },
+            }}
+            component={OrderDetail}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
