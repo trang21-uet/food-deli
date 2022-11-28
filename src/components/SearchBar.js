@@ -1,11 +1,11 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-export default function SearchBar() {
+export default function SearchBar({ title }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <TextInput style={styles.input} placeholder="Tìm kiếm món ăn..." />
+        <TextInput style={styles.input} placeholder={title} />
         <Ionicons name="search" size={25} color={"gray"} />
       </View>
     </View>
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     padding: 10,
-    marginTop: -25,
     paddingHorizontal: 20,
   },
   searchContainer: {
@@ -29,5 +28,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
+    fontFamily: "Poppins-Regular",
   },
 });

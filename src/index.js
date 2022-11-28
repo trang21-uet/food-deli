@@ -3,6 +3,7 @@ import Detail from "./screens/detail/Index.js";
 import OrderManagement from "./screens/orders/ordermanagement/Index.js";
 import OrderDetail from "./screens/orders/orderdeatail/Index";
 import OrderStatus from "./screens/orders/orderstatus/Index";
+import Restaurant from "./screens/restaurant/Index";
 export {
   Home,
   Search,
@@ -14,4 +15,5 @@ export {
   OrderManagement,
   OrderDetail,
   OrderStatus,
+  Restaurant,
 };

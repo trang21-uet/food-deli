@@ -46,11 +46,6 @@ const Index = () => {
   };
   return (
     <ScrollView>
-      <View style={styles.closeBtn}>
-        <TouchableOpacity onPress={nav.goBack}>
-          <MyIcon name="arrow-back" color={"white"} size={35} />
-        </TouchableOpacity>
-      </View>
       <View style={styles.containerImage}>
         <ScrollView
           onScroll={({ nativeEvent }) => onchange(nativeEvent)}
@@ -136,10 +131,6 @@ const styles = StyleSheet.create({
     color: "gray",
     fontFamily: "Poppins-Regular",
     marginBottom: 5,
-  },
-  closeBtn: {
-    position: "absolute",
-    zIndex: 1,
   },
 
   wrapDot: {

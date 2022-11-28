@@ -13,6 +13,7 @@ import {
   OrderManagement,
   OrderDetail,
   OrderStatus,
+  Restaurant,
 } from "./src";
 import { ForgotPassword } from "./src/screens";
 const Stack = createNativeStackNavigator();
@@ -59,13 +60,48 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="OrderManagement">
-          <Stack.Screen name="MainScreen" component={MainScreen} />
-          <Stack.Screen name="Settings" component={Settings} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="Detail" component={Detail} />
+        <Stack.Navigator initialRouteName="MainScreen">
+          <Stack.Screen
+            name="MainScreen"
+            options={{ headerShown: false }}
+            component={MainScreen}
+          />
+          <Stack.Screen
+            name="Settings"
+            options={{ headerShown: false }}
+            component={Settings}
+          />
+          <Stack.Screen
+            name="Login"
+            options={{ headerShown: false }}
+            component={Login}
+          />
+          <Stack.Screen
+            name="Register"
+            options={{ headerShown: false }}
+            component={Register}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            options={{ headerShown: false }}
+            component={ForgotPassword}
+          />
+          <Stack.Screen
+            name="Detail"
+            options={{
+              title: "",
+              headerTransparent: true,
+            }}
+            component={Detail}
+          />
+          <Stack.Screen
+            name="Restaurant"
+            options={{
+              title: "",
+              headerTransparent: true,
+            }}
+            component={Restaurant}
+          />
           <Stack.Screen
             name="OrderManagement"
             options={{
