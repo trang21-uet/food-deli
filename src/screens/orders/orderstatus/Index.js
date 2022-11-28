@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
 import ItemStatus from "./ItemStatus";
 import { useNavigation } from "@react-navigation/native";
+import Review from "../orderdeatail/review/Review";
 const status = [
   {
     id: 1,
