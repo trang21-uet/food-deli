@@ -1,7 +1,8 @@
 import MainScreen, { Home, Search, Settings, Login, Register } from "./screens";
 import Detail from "./screens/detail/Index.js";
-import OrderManagement from "./screens/orders/OrderManagement.js";
-import OrderDetail from "./screens/orders/OrderDetail";
+import OrderManagement from "./screens/orders/ordermanagement/Index.js";
+import OrderDetail from "./screens/orders/orderdeatail/Index";
+import OrderStatus from "./screens/orders/orderstatus/Index";
 export {
   Home,
   Search,
@@ -12,4 +13,5 @@ export {
   Detail,
   OrderManagement,
   OrderDetail,
+  OrderStatus,
 };

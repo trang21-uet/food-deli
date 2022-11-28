@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import ItemFood from "./orderdeatail/ItemFood";
-
-const OrderDetail = () => {
+import ItemFood from "./ItemFood";
+import { useNavigation } from "@react-navigation/native";
+const Index = () => {
+  const nav = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -18,7 +19,11 @@ const OrderDetail = () => {
           }}
         >
           <Text style={styles.title}>Trạng thái: Đang giao</Text>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            activeOpacity={0.8}
+            onPress={() => nav.navigate("OrderStatus")}
+          >
             <Text style={{ ...styles.title, color: "white" }}>Chi tiết</Text>
           </TouchableOpacity>
         </View>
@@ -45,7 +50,7 @@ const OrderDetail = () => {
   );
 };
 
-export default OrderDetail;
+export default Index;
 
 const styles = StyleSheet.create({
   container: {

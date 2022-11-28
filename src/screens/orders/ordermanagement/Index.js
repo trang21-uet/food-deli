@@ -29,7 +29,7 @@ function CompletedScreen() {
   );
 }
 const Tab = createMaterialTopTabNavigator();
-const OrderManagement = () => {
+const Index = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Đang giao" component={OnGoingScreen} />
@@ -38,6 +38,6 @@ const OrderManagement = () => {
   );
 };
 
-export default OrderManagement;
+export default Index;
 
 const styles = StyleSheet.create({});

@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
-
+import { useNavigation } from "@react-navigation/native";
 const ItemOrder = () => {
+  const nav = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={styles.container}
+      onPress={() => nav.navigate("OrderDetail")}
+    >
       <Image
         style={styles.image}
-        source={require("../../assets/images/garan.jpg")}
+        source={require("../../../assets/images/garan.jpg")}
         resizeMode={"contain"}
       />
       <View style={styles.detail}>
@@ -23,7 +28,7 @@ const ItemOrder = () => {
 
         <Text style={styles.price}>200.0000 Đ</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

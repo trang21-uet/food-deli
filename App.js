@@ -12,6 +12,7 @@ import {
   Detail,
   OrderManagement,
   OrderDetail,
+  OrderStatus,
 } from "./src";
 import { ForgotPassword } from "./src/screens";
 const Stack = createNativeStackNavigator();
@@ -58,7 +59,7 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="OrderDetail">
+        <Stack.Navigator initialRouteName="OrderManagement">
           <Stack.Screen name="MainScreen" component={MainScreen} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="Login" component={Login} />
@@ -90,6 +91,19 @@ export default function App() {
               },
             }}
             component={OrderDetail}
+          />
+          <Stack.Screen
+            name="OrderStatus"
+            options={{
+              title: "Tình trạng đơn hàng",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+                fontWeight: "200",
+              },
+            }}
+            component={OrderStatus}
           />
         </Stack.Navigator>
       </NavigationContainer>
