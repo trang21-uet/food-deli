@@ -11,8 +11,8 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import Banner from "../../components/Banner";
 import SearchBar from "../../components/SearchBar";
 import Categories from "../../components/Categories";
-import ItemDish from "../../components/ItemDish";
 import ItemDish2 from "../../components/ItemDish2";
+import ItemDish1 from "../../components/ItemDish1";
 import ButtonAll from "../../components/ButtonAll";
 export default function Home({ navigation }) {
   const { colors } = useTheme();
@@ -20,16 +20,18 @@ export default function Home({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <Banner />
-      <SearchBar />
+      <View style={{ marginTop: -30 }}>
+        <SearchBar />
+      </View>
       <Categories />
       <View style={{ marginTop: 10 }}>
         <ButtonAll title={"ĐANG HOT"} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <ItemDish navigation={navigation} />
-          <ItemDish />
-          <ItemDish />
-          <ItemDish />
-          <ItemDish />
+          <ItemDish1 />
+          <ItemDish1 />
+          <ItemDish1 />
+          <ItemDish1 />
+          <ItemDish1 />
         </ScrollView>
       </View>
       <View style={{ marginTop: 10 }}>

@@ -4,7 +4,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import OrderCollapse from "./OrderCollapse";
-const index = () => {
+const Index = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.name}>
@@ -89,7 +89,7 @@ const index = () => {
     </View>
   );
 };
-export default index;
+export default Index;
 
 const styles = StyleSheet.create({
   container: {

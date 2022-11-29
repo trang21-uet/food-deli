@@ -5,11 +5,8 @@ const ButtonAll = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{props.title}</Text>
-      <TouchableOpacity style={styles.container}>
-        <View style={styles.button}>
-          <Text style={{ color: "gray" }}>All </Text>
-          <AntDesign size={20} color={"gray"} name={"arrowright"} />
-        </View>
+      <TouchableOpacity style={styles.button}>
+        <AntDesign size={20} name={"arrowright"} />
       </TouchableOpacity>
     </View>
   );
@@ -21,17 +18,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   name: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    borderBottomWidth: 2,
+    borderColor: "#fc795d",
     marginLeft: 15,
+    fontFamily: "Poppins-Medium",
   },
   button: {
     flexDirection: "row",
     backgroundColor: "white",
-    height: 40,
-    width: 60,
-    borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15,
+    height: 30,
+    width: 35,
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",

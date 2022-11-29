@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "gray",
+    fontFamily: "Poppins-Regular",
   },
   image: {
     height: 40,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     height: 55,
     width: 55,
     backgroundColor: "white",
-    borderRadius: 15,
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",

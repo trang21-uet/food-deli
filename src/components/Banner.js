@@ -1,20 +1,37 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { COLOR } from "../constants/Color";
 import { WIDTH } from "../constants/Dimension";
 
 const Banner = () => {
   return (
     <View style={styles.container}>
       <View style={styles.bannerContainer}>
-        <View style={styles.center}>
-          <View style={styles.text}>
-            <Text>Tìm kiếm món ăn</Text>
-            <Text>
-              cùng <Text style={styles.red}>Food</Text>
+        <View>
+          <Text style={{ fontFamily: "Poppins-Medium", fontSize: 18 }}>
+            <Text style={{ color: "white" }}>FOOD</Text> DELIVERY
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Poppins-Regular",
+              marginTop: -10,
+              fontSize: 12,
+            }}
+          >
+            Món gì cũng có
+          </Text>
+          <TouchableOpacity style={styles.btn}>
+            <Text
+              style={{
+                fontFamily: "Poppins-Regular",
+                color: "white",
+                borderRadius: 5,
+              }}
+            >
+              Khám phá ngay
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
+
         <View style={styles.imageContainer}>
           <Image
             source={require("../assets/images/delivery.png")}
@@ -36,21 +53,13 @@ const styles = StyleSheet.create({
   bannerContainer: {
     paddingVertical: 15,
     flexDirection: "row",
-    backgroundColor: COLOR.yellow,
+    backgroundColor: "#fec363",
     justifyContent: "space-around",
   },
   text: {
     height: 50,
     justifyContent: "space-around",
     marginBottom: 10,
-  },
-  red: {
-    color: COLOR.red,
-  },
-  center: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 30,
   },
   image: {
     width: 120,
@@ -59,5 +68,13 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: "flex-end",
     paddingRight: 25,
+  },
+  btn: {
+    backgroundColor: "red",
+    alignSelf: "baseline",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 5,
+    marginTop: 10,
   },
 });

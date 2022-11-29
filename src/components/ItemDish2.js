@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
+import Rate from "./Rate";
 const width = Dimensions.get("window").width;
 const ItemDish = () => {
   return (
@@ -9,23 +10,19 @@ const ItemDish = () => {
       <View style={styles.containerImage}>
         <Image
           style={styles.image}
-          source={require("../assets/images/phohanoi.jpg")}
-          resizeMode={"contain"}
+          source={require("../assets/images/garan.jpg")}
+          resizeMode={"cover"}
         />
       </View>
       <View style={styles.info}>
-        <Text style={styles.name}>Phở Hà Nội</Text>
-        <Text style={styles.restaurant}>Vinmart</Text>
-        <Text style={styles.price}>40.000 Đ</Text>
-        <View style={styles.footer}>
-          <View style={styles.box}>
-            <Ionicons size={14} color={"gray"} name="ios-time-outline" />
-            <Text style={{ color: "gray" }}> 20-40 phút</Text>
-          </View>
-          <View style={styles.box}>
-            <Feather name="star" color={"gray"} size={14} />
-            <Text style={{ color: "gray" }}> 4.5</Text>
-          </View>
+        <Text style={styles.name}>Gà chiên xù</Text>
+        <View style={styles.box}>
+          <Rate size={15} numberRate={4} />
+          <Text style={{ color: "gray" }}> 4.5</Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.price}>40.000 Đ</Text>
+          <Text style={styles.oldprice}>50.000 Đ</Text>
         </View>
       </View>
     </View>
@@ -35,49 +32,50 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     alignItems: "center",
-    borderRadius: 15,
+    borderRadius: 4,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    paddingVertical: 10,
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
     overflow: "hidden",
   },
   name: {
-    fontSize: 20,
-    marginTop: 5,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "Poppins-Medium",
   },
   price: {
     fontSize: 18,
     color: "#fc795d",
-    marginBottom: 5,
   },
   box: {
     flexDirection: "row",
     alignItems: "center",
   },
-  restaurant: {
-    color: "gray",
+  price: {
+    fontSize: 18,
+    marginRight: 5,
+    color: "#fc795d",
+    fontFamily: "Poppins-Medium",
   },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  oldprice: {
+    color: "gray",
+    fontFamily: "Poppins-Medium",
+    textDecorationLine: "line-through",
   },
   info: {
     width: "100%",
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
   containerImage: {
     marginTop: 5,
   },
   image: {
-    height: 150,
-    width: 150,
+    height: width / 2 - 10,
+    width: width / 2 - 10,
   },
 });
 export default ItemDish;
