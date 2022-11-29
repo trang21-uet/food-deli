@@ -2,6 +2,7 @@ import { StatusBar, Platform, View, Button, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import {
@@ -15,8 +16,10 @@ import {
   OrderStatus,
   Restaurant,
   OrderConfirm,
+  SearchCategory,
 } from "./src";
 import { ForgotPassword } from "./src/screens";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const Stack = createNativeStackNavigator();
 
 const theme = {
@@ -61,7 +64,7 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="Settings">
+        <Stack.Navigator initialRouteName="MainScreen">
           <Stack.Screen
             name="MainScreen"
             options={{ headerShown: false }}
@@ -126,10 +129,26 @@ export default function App() {
               headerShadowVisible: false,
               headerTitleStyle: {
                 fontFamily: "Poppins-Medium",
-                fontWeight: "200",
               },
             }}
             component={OrderManagement}
+          />
+          <Stack.Screen
+            name="SearchCategory"
+            options={({ route }) => ({
+              title: route.params.name,
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+              },
+              headerRight: () => (
+                <TouchableOpacity>
+                  <FontAwesome name="filter" size={20} />
+                </TouchableOpacity>
+              ),
+            })}
+            component={SearchCategory}
           />
           <Stack.Screen
             name="OrderDetail"

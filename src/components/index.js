@@ -1,8 +1,7 @@
-import MyIcon from './MyIcon';
-import MyInput from './MyInput';
-import MyButton from './MyButton';
-import Restaurant from './Restaurant';
-import Header from './Header';
-import Pill from './Pill';
+import MyIcon from "./MyIcon";
+import MyInput from "./MyInput";
+import MyButton from "./MyButton";
+import Header from "./Header";
+import Pill from "./Pill";
 
-export { MyIcon, MyButton, MyInput, Restaurant, Header, Pill };
+export { MyIcon, MyButton, MyInput, Header, Pill };

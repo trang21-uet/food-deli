@@ -1,9 +1,7 @@
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableNativeFeedback,
   TouchableOpacity,
   View,
 } from "react-native";

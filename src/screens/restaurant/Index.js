@@ -5,7 +5,6 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableOpacity,
   TextInput,
 } from "react-native";
 const width = Dimensions.get("window").width;

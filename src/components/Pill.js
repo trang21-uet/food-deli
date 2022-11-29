@@ -1,5 +1,5 @@
-import { View, Text, TouchableNativeFeedback } from 'react-native';
-import React from 'react';
+import { View, Text, TouchableNativeFeedback } from "react-native";
+import React from "react";
 
 export default function Pill({
   borderRadius,
@@ -20,7 +20,7 @@ export default function Pill({
           marginVertical,
         },
         !noShadow && {
-          shadowColor: '#000',
+          shadowColor: "#000",
           shadowOffset: {
             width: 0,
             height: 2,
@@ -33,7 +33,7 @@ export default function Pill({
     >
       <TouchableNativeFeedback
         onPress={onPress}
-        background={TouchableNativeFeedback.Ripple(ripple || '#ccc', true)}
+        background={TouchableNativeFeedback.Ripple(ripple || "#ccc", true)}
       >
         <View {...style}>{children}</View>
       </TouchableNativeFeedback>

@@ -1,22 +1,31 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { CATEGORIES } from "../constants/Data";
+import { useNavigation } from "@react-navigation/native";
 
-const Item = (props) => (
-  <TouchableOpacity style={styles.item}>
-    <View style={styles.itemContainerImage}>
-      <Image
-        source={props.style.url}
-        style={styles.image}
-        resizeMode="contain"
-      />
-    </View>
-    <Text style={styles.title}>{props.style.title}</Text>
-  </TouchableOpacity>
-);
+const Item = (props) => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      style={styles.item}
+      activeOpacity={0.8}
+      onPress={() =>
+        navigation.navigate("SearchCategory", { name: props.style.title })
+      }
+    >
+      <View style={styles.itemContainerImage}>
+        <Image
+          source={props.style.url}
+          style={styles.image}
+          resizeMode="contain"
+        />
+      </View>
+      <Text style={styles.title}>{props.style.title}</Text>
+    </TouchableOpacity>
+  );
+};
 
 const Categories = () => {
-  const renderItem = ({ item }) => <Item title={item.title} />;
   return (
     <View style={styles.container}>
       <View style={styles.containerListItem}>

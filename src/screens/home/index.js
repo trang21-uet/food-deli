@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
     <ScrollView style={styles.container}>
       <Banner />
       <View style={{ marginTop: -30 }}>
-        <SearchBar />
+        <SearchBar title={"Tìm kiếm món ăn hoặc nhà hàng"} />
       </View>
       <Categories />
       <View style={{ marginTop: 10 }}>

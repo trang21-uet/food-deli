@@ -4,7 +4,8 @@ import OrderManagement from "./screens/orders/ordermanagement/Index.js";
 import OrderDetail from "./screens/orders/orderdeatail/Index";
 import OrderStatus from "./screens/orders/orderstatus/Index";
 import Restaurant from "./screens/restaurant/Index";
-import OrderConfirm from "./screens/orders/orderconfirm/index";
+import OrderConfirm from "./screens/orders/orderconfirm/Index";
+import SearchCategory from "./screens/food/SearchCategory";
 export {
   Home,
   Search,
@@ -18,4 +19,5 @@ export {
   OrderStatus,
   Restaurant,
   OrderConfirm,
+  SearchCategory,
 };
