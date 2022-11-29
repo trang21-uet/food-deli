@@ -14,6 +14,7 @@ import {
   OrderDetail,
   OrderStatus,
   Restaurant,
+  OrderConfirm,
 } from "./src";
 import { ForgotPassword } from "./src/screens";
 const Stack = createNativeStackNavigator();
@@ -85,6 +86,18 @@ export default function App() {
             name="ForgotPassword"
             options={{ headerShown: false }}
             component={ForgotPassword}
+          />
+          <Stack.Screen
+            name="OrderConfirm"
+            component={OrderConfirm}
+            options={{
+              title: "Xác nhận mua hàng",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+              },
+            }}
           />
           <Stack.Screen
             name="Detail"

@@ -1,9 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useTheme } from "@react-navigation/native";
-import { Header, Restaurant } from "../../components";
 import CategoriesBar from "../../components/CategoriesBar";
 import SearchBar from "../../components/SearchBar";
+import ItemRestaurant from "../../components/ItemRetaurant";
 
 const data = [
   {
@@ -54,22 +53,15 @@ export default function RestaurantList() {
         categoryActive={indexCategory}
         changeCategory={setIndexCatgory}
       />
-      <View>
-        <ScrollView style={{ flex: 1 }}>
-          <View style={{ paddingHorizontal: 20 }}>
-            {/* {items.map((item, index) => (
-              <Restaurant key={index} {...item} />
-            ))} */}
-          </View>
-        </ScrollView>
-      </View>
+      <ScrollView style={{ marginTop: 10 }}>
+        <ItemRestaurant />
+        <ItemRestaurant />
+        <ItemRestaurant />
+        <ItemRestaurant />
+        <ItemRestaurant />
+        <ItemRestaurant />
+        <ItemRestaurant />
+      </ScrollView>
     </View>
   );
 }
-
-const getStyles = (colors) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
