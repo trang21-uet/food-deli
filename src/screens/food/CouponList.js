@@ -1,27 +1,65 @@
-import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import { View, TextInput, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useTheme } from "@react-navigation/native";
 import ItemCounpon from "../../components/ItemCounpon";
+import CategoriesBar from "../../components/CategoriesBar";
+const categories = [
+  {
+    id: 1,
+    title: "All",
+  },
+  {
+    id: 2,
+    title: "Cơm tấm",
+  },
+  {
+    id: 3,
+    title: "Gà rán",
+  },
+  {
+    id: 4,
+    title: "Trà sữa",
+  },
+  {
+    id: 5,
+    title: "Bánh mì",
+  },
+  {
+    id: 6,
+    title: "Trà sữa",
+  },
+  {
+    id: 7,
+    title: "Bánh mì",
+  },
+  {
+    id: 8,
+    title: "Trà sữa",
+  },
+  {
+    id: 9,
+    title: "Bánh mì",
+  },
+];
 export default function CouponList() {
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const [indexCategory, setIndexCatgory] = useState(0);
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput style={styles.input} placeholder="Tìm kiếm mã giảm giá" />
         <Ionicons name="search" size={25} color={"gray"} />
       </View>
-      <View style={styles.category}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <ItemCategory title={"Tất cả"} />
-          <ItemCategory title={"Cơm gà"} />
-          <ItemCategory title={"Sushi"} />
-          <ItemCategory title={"Phở"} />
-          <ItemCategory title={"Bánh mì"} />
-          <ItemCategory title={"Gà"} />
-        </ScrollView>
+      <View style={{ marginVertical: 10 }}>
+        <CategoriesBar
+          listItem={categories}
+          categoryActive={indexCategory}
+          changeCategory={setIndexCatgory}
+        />
       </View>
+
       <ScrollView>
         <ItemCounpon />
         <ItemCounpon />
@@ -35,14 +73,6 @@ export default function CouponList() {
     </View>
   );
 }
-const ItemCategory = (props) => {
-  const styles = getStyles();
-  return (
-    <View style={styles.containerCategory}>
-      <Text style={styles.categoryTitle}>{props.title}</Text>
-    </View>
-  );
-};
 
 const getStyles = (colors) =>
   StyleSheet.create({
@@ -51,7 +81,7 @@ const getStyles = (colors) =>
       marginHorizontal: 10,
       flexDirection: "row",
       marginTop: 10,
-      borderRadius: 15,
+      borderRadius: 10,
       paddingHorizontal: 12,
       paddingVertical: 8,
       backgroundColor: "white",
@@ -67,17 +97,6 @@ const getStyles = (colors) =>
     input: {
       flex: 1,
       fontSize: 16,
-    },
-    category: {
-      marginTop: 10,
-    },
-    containerCategory: {
-      paddingHorizontal: 20,
-      paddingVertical: 5,
-    },
-    categoryTitle: {
-      fontSize: 16,
-      fontWeight: "bold",
-      color: "gray",
+      fontFamily: "Poppins-Regular",
     },
   });

@@ -1,17 +1,25 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
-import { COLOR } from "../constants/Color";
 const ItemCounpon = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerLeft}>
         <View style={{ flex: 1 }}>
-          <Text>Giảm 15 % giá tất cả sản phẩm</Text>
+          <Text style={{ fontFamily: "Poppins-Regular" }}>
+            Giảm 15 % giá sản phẩm, chỉ áp đối với 1 số shop nhất định.
+          </Text>
         </View>
-
         <View>
           <View style={styles.button}>
-            <Text style={{ color: "white" }}>Lưu mã giảm giá</Text>
+            <Text
+              style={{
+                color: "white",
+                fontFamily: "Poppins-Regular",
+                lineHeight: 20,
+              }}
+            >
+              Lưu mã giảm giá
+            </Text>
           </View>
         </View>
       </View>
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "white",
     margin: 10,
-    borderRadius: 10,
+    borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -66,6 +74,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: "#fd795c",
-    borderRadius: 5,
+    borderRadius: 3,
   },
 });
