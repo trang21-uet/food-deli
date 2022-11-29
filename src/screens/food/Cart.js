@@ -90,7 +90,7 @@ export default function Cart() {
             fontSize: 16,
           }}
         >
-          MUA HÀNG
+          MUA HÀNG(3)
         </Text>
       </TouchableOpacity>
     </View>

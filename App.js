@@ -61,7 +61,7 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="Settings">
           <Stack.Screen
             name="MainScreen"
             options={{ headerShown: false }}
