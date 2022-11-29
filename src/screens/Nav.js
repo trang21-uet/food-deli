@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
-import React from 'react';
-import { MyIcon, Pill } from '../components';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { StyleSheet, Text, TouchableNativeFeedback, View } from "react-native";
+import React from "react";
+import { MyIcon, Pill } from "../components";
+import { useNavigation, useTheme } from "@react-navigation/native";
 
 export default function Nav() {
   const theme = useTheme();
@@ -9,11 +9,11 @@ export default function Nav() {
 
   return (
     <View style={styles.nav}>
-      <NavButton icon='home' screen='Home' />
-      <NavButton icon='restaurant' screen='RestaurantList' />
-      <NavButton icon='cart' screen='Cart' />
-      <NavButton icon='gift' screen='CouponList' />
-      <NavButton icon='person' screen='Login' />
+      <NavButton icon="home" screen="Home" />
+      <NavButton icon="restaurant" screen="RestaurantList" />
+      <NavButton icon="cart" screen="Cart" />
+      <NavButton icon="gift" screen="CouponList" />
+      <NavButton icon="person" screen="Settings" />
     </View>
   );
 }
@@ -41,13 +41,13 @@ const NavButton = ({ icon, screen }) => {
   );
 };
 
-const getStyles = colors =>
+const getStyles = (colors) =>
   StyleSheet.create({
     nav: {
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignItems: "center",
       backgroundColor: colors.card,
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
@@ -55,6 +55,6 @@ const getStyles = colors =>
     },
     button: {
       borderRadius: 20,
-      overflow: 'hidden',
+      overflow: "hidden",
     },
   });

@@ -69,7 +69,10 @@ export default function App() {
           />
           <Stack.Screen
             name="Settings"
-            options={{ headerShown: false }}
+            options={{
+              title: "",
+              headerTransparent: true,
+            }}
             component={Settings}
           />
           <Stack.Screen
