@@ -9,5 +9,5 @@ export const COLOR = {
   black: "rgb(46,46,46)",
   yellow: "#ffe2da",
   darkYellow: "#e4b056",
-  primary: "#f3f4f8",
+  primary: "#fc795d",
 };

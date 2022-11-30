@@ -6,6 +6,8 @@ import OrderStatus from "./screens/orders/orderstatus/Index";
 import Restaurant from "./screens/restaurant/Index";
 import OrderConfirm from "./screens/orders/orderconfirm/Index";
 import SearchCategory from "./screens/food/SearchCategory";
+import AddressManager from "./screens/address/addressmanager/Index";
+import CreateAddress from "./screens/address/createaddress/Index";
 export {
   Home,
   Search,
@@ -20,4 +22,6 @@ export {
   Restaurant,
   OrderConfirm,
   SearchCategory,
+  AddressManager,
+  CreateAddress,
 };

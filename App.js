@@ -17,6 +17,8 @@ import {
   Restaurant,
   OrderConfirm,
   SearchCategory,
+  AddressManager,
+  CreateAddress,
 } from "./src";
 import { ForgotPassword } from "./src/screens";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -64,7 +66,7 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="MainScreen">
+        <Stack.Navigator initialRouteName="AddressManager">
           <Stack.Screen
             name="MainScreen"
             options={{ headerShown: false }}
@@ -171,10 +173,33 @@ export default function App() {
               headerShadowVisible: false,
               headerTitleStyle: {
                 fontFamily: "Poppins-Medium",
-                fontWeight: "200",
               },
             }}
             component={OrderStatus}
+          />
+          <Stack.Screen
+            name="AddressManager"
+            options={{
+              title: "Địa chỉ của tôi",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+              },
+            }}
+            component={AddressManager}
+          />
+          <Stack.Screen
+            name="CreateAddress"
+            options={{
+              title: "Tạo địa chỉ mới",
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerTitleStyle: {
+                fontFamily: "Poppins-Medium",
+              },
+            }}
+            component={CreateAddress}
           />
         </Stack.Navigator>
       </NavigationContainer>
