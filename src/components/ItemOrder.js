@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   containerProduct: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginTop: 10,
+    marginTop: 20,
   },
   total: {
     fontFamily: "Poppins-Medium",

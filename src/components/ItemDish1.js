@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const ItemDish = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+const ItemDish = () => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.8}
-      onPress={() => navigation.push("Detail")}
+      onPress={() => navigation.navigate("Detail")}
     >
       <View style={styles.containerImage}>
         <Image

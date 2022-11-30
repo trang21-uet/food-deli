@@ -42,7 +42,7 @@ const Index = () => {
           />
         </TouchableOpacity>
       </View>
-      <CustomButton title={"HOÀN THÀNH"} />
+      <CustomButton title={"GHI NHẬN"} />
     </View>
   );
 };

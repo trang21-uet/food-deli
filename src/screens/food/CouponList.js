@@ -76,7 +76,7 @@ export default function CouponList() {
 
 const getStyles = (colors) =>
   StyleSheet.create({
-    container: {},
+    container: { flex: 1 },
     searchContainer: {
       marginHorizontal: 10,
       flexDirection: "row",

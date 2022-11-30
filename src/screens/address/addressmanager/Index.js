@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 const data = [
   {
     id: 1,
@@ -40,7 +41,9 @@ const data = [
     default: false,
   },
 ];
+
 const Index = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       <Text
@@ -55,7 +58,11 @@ const Index = () => {
       {data.map((element, index) => (
         <Item key={index} item={element} />
       ))}
-      <TouchableOpacity style={styles.btn} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={styles.btn}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("CreateAddress")}
+      >
         <Text
           style={{
             fontFamily: "Poppins-Regular",

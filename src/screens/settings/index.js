@@ -21,7 +21,7 @@ const data = [
     id: 2,
     title: "Quản lý địa chỉ",
     icon: "ios-location-outline",
-    screen: "MainScreen",
+    screen: "AddressManager",
   },
   {
     id: 4,
