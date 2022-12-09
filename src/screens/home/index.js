@@ -1,42 +1,36 @@
+import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
+import React from 'react';
+import { useTheme } from '@react-navigation/native';
+import Banner from '../../components/Banner';
+import ButtonAll from '../../components/ButtonAll';
 import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ScrollView,
-  Button,
-} from "react-native";
-import React from "react";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import Banner from "../../components/Banner";
-import SearchBar from "../../components/SearchBar";
-import Categories from "../../components/Categories";
-import ItemDish2 from "../../components/ItemDish2";
-import ItemDish1 from "../../components/ItemDish1";
-import ButtonAll from "../../components/ButtonAll";
-export default function Home({ navigation }) {
-  const { colors } = useTheme();
-  const styles = getStyles(colors);
+  Categories,
+  SearchBar,
+  HorizontalDish,
+  VerticalDish,
+} from '../../components';
+
+export default function Home() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{ flex: 1 }}>
       <Banner />
-      <View style={{ marginTop: -30 }}>
-        <SearchBar title={"Tìm kiếm món ăn hoặc nhà hàng"} />
+      <View style={{ marginTop: -45 }}>
+        <SearchBar title={'Tìm kiếm món ăn'} />
       </View>
       <Categories />
       <View style={{ marginTop: 10 }}>
-        <ButtonAll title={"ĐANG HOT"} />
+        <ButtonAll title={'ĐANG HOT'} />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <ItemDish1 />
-          <ItemDish1 />
-          <ItemDish1 />
-          <ItemDish1 />
-          <ItemDish1 />
+          <HorizontalDish />
+          <HorizontalDish />
+          <HorizontalDish />
+          <HorizontalDish />
+          <HorizontalDish />
         </ScrollView>
       </View>
       <View style={{ marginTop: 10 }}>
-        <ButtonAll title={"MỚI NHẤT"} />
-        <FlatList
+        <ButtonAll title={'MỚI NHẤT'} />
+        {/* <FlatList
           data={[1, 2, 2, 2]}
           numColumns={2}
           renderItem={({ item, index }) => {
@@ -46,59 +40,43 @@ export default function Home({ navigation }) {
                 style={{
                   flex: 1,
                   padding: 8,
-                  maxWidth: lastItem ? "50%" : "100%",
+                  maxWidth: lastItem ? '50%' : '100%',
                 }}
               >
-                <ItemDish2 />
+                <VerticalDish key={index} />
               </View>
             );
           }}
-        />
+        /> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 5,
+            marginTop: 5,
+          }}
+        >
+          <View style={{ maxWidth: '50%', padding: 5 }}>
+            <VerticalDish />
+          </View>
+          <View style={{ maxWidth: '50%', padding: 5 }}>
+            <VerticalDish />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingHorizontal: 5,
+            marginBottom: 5,
+          }}
+        >
+          <View style={{ maxWidth: '50%', padding: 5 }}>
+            <VerticalDish />
+          </View>
+          <View style={{ maxWidth: '50%', padding: 5 }}>
+            <VerticalDish />
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
 }
-
-const getStyles = (colors) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-
-    search: {
-      width: "auto",
-      top: 170,
-      left: 30,
-      right: 30,
-    },
-    searchBox: {
-      backgroundColor: colors.white,
-      fontSize: 15,
-    },
-    searchBtn: {
-      position: "absolute",
-      top: 14,
-      right: 10,
-    },
-    row: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    foodBtn: {
-      flexDirection: "column",
-      alignItems: "center",
-      margin: 10,
-    },
-    foodBtnImage: {
-      width: 60,
-      height: 60,
-      borderRadius: 5,
-      backgroundColor: "#ccc",
-    },
-    card: {
-      flex: 1,
-      height: 100,
-      backgroundColor: colors.card,
-      marginHorizontal: 30,
-    },
-  });

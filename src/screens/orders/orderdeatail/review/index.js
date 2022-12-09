@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
-  Button,
   Text,
   TextInput,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-} from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
-import Rating from "./Rating";
-export const windowWidth = Dimensions.get("window").width;
+} from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import Rating from './Rating';
+
+export const windowWidth = Dimensions.get('window').width;
+
 const TextField = () => {
   return (
     <View style={styles.container}>
@@ -20,13 +21,12 @@ const TextField = () => {
         multiline
         numberOfLines={5}
         style={styles.textField}
-        placeholder="Viết đánh giá..."
+        placeholder='Viết đánh giá...'
       />
       <TouchableOpacity style={styles.btn}>
         <Text
           style={{
-            fontFamily: "Poppins-Regular",
-            color: "white",
+            color: 'white',
             fontSize: 16,
           }}
         >
@@ -36,6 +36,7 @@ const TextField = () => {
     </View>
   );
 };
+
 export default class Review extends Component {
   render() {
     return (
@@ -46,8 +47,7 @@ export default class Review extends Component {
         >
           <Text
             style={{
-              fontFamily: "Poppins-Regular",
-              color: "white",
+              color: 'white',
               fontSize: 16,
             }}
           >
@@ -56,7 +56,7 @@ export default class Review extends Component {
         </TouchableOpacity>
         <RBSheet
           closeOnDragDown={true}
-          ref={(ref) => {
+          ref={ref => {
             this.RBSheet = ref;
           }}
           height={300}
@@ -70,37 +70,35 @@ export default class Review extends Component {
 }
 const styles = StyleSheet.create({
   textField: {
-    borderColor: "#b6b5b1",
+    borderColor: '#b6b5b1',
     borderRadius: 5,
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
     padding: 10,
     width: windowWidth - 50,
     borderWidth: 1,
     marginTop: 10,
-    fontFamily: "Poppins-Regular",
   },
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   header: {
-    fontFamily: "Poppins-Medium",
     fontSize: 18,
   },
   btn: {
     width: windowWidth - 50,
     padding: 10,
-    backgroundColor: "#FF4E3C",
+    backgroundColor: '#FF4E3C',
     borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 10,
   },
   btn2: {
-    backgroundColor: "#FF4E3C",
+    backgroundColor: '#FF4E3C',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: 5,
     marginTop: 8,
   },

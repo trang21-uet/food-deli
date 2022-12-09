@@ -4,8 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import React from "react";
+} from 'react-native';
+import React from 'react';
 
 const CategoriesBar = ({ listItem, categoryActive, changeCategory }) => {
   return (
@@ -14,21 +14,19 @@ const CategoriesBar = ({ listItem, categoryActive, changeCategory }) => {
       horizontal={true}
       showsHorizontalScrollIndicator={false}
     >
-      {listItem.map((item, key) => (
-        <View
-          style={
-            categoryActive === key
-              ? { ...styles.item, ...styles.itemActive }
-              : styles.item
-          }
+      {listItem.map(({ title }, index) => (
+        <TouchableOpacity
+          activeOpacity={0.4}
+          disabled={categoryActive === index}
+          onPress={() => changeCategory(index)}
+          key={index}
         >
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => changeCategory(key)}
+          <View
+            style={[styles.item, categoryActive === index && styles.itemActive]}
           >
-            <Text style={styles.title}>{item.title}</Text>
-          </TouchableOpacity>
-        </View>
+            <Text style={styles.label}>{title}</Text>
+          </View>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );
@@ -38,17 +36,16 @@ export default CategoriesBar;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    overflow: "hidden",
   },
   item: {
     paddingHorizontal: 10,
-    color: "gray",
+    paddingBottom: 10,
   },
   itemActive: {
     borderBottomWidth: 3,
-    borderColor: "#FF4E3C",
+    borderColor: '#FF4E3C',
   },
-  title: {
-    fontFamily: "Poppins-Medium",
+  label: {
+    fontSize: 16,
   },
 });

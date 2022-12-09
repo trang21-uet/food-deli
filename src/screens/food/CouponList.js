@@ -1,47 +1,48 @@
-import { View, TextInput, StyleSheet, ScrollView } from "react-native";
-import React, { useState } from "react";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useTheme } from "@react-navigation/native";
-import ItemCounpon from "../../components/ItemCounpon";
-import CategoriesBar from "../../components/CategoriesBar";
+import { View, TextInput, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '@react-navigation/native';
+import { ItemCounpon, CategoriesBar } from '../../components';
+
 const categories = [
   {
     id: 1,
-    title: "All",
+    title: 'Tất cả',
   },
   {
     id: 2,
-    title: "Cơm tấm",
+    title: 'Cơm tấm',
   },
   {
     id: 3,
-    title: "Gà rán",
+    title: 'Gà rán',
   },
   {
     id: 4,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 5,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
   {
     id: 6,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 7,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
   {
     id: 8,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 9,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
 ];
+
 export default function CouponList() {
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -49,10 +50,10 @@ export default function CouponList() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <TextInput style={styles.input} placeholder="Tìm kiếm mã giảm giá" />
-        <Ionicons name="search" size={25} color={"gray"} />
+        <TextInput style={styles.input} placeholder='Tìm kiếm mã giảm giá' />
+        <Ionicons name='search' size={25} color={'gray'} />
       </View>
-      <View style={{ marginVertical: 10 }}>
+      <View style={{ marginTop: 10 }}>
         <CategoriesBar
           listItem={categories}
           categoryActive={indexCategory}
@@ -74,17 +75,17 @@ export default function CouponList() {
   );
 }
 
-const getStyles = (colors) =>
+const getStyles = colors =>
   StyleSheet.create({
     container: { flex: 1 },
     searchContainer: {
       marginHorizontal: 10,
-      flexDirection: "row",
+      flexDirection: 'row',
       marginTop: 10,
       borderRadius: 10,
       paddingHorizontal: 12,
       paddingVertical: 8,
-      backgroundColor: "white",
+      backgroundColor: 'white',
       shadowOffset: {
         width: 0,
         height: 2,
@@ -97,6 +98,5 @@ const getStyles = (colors) =>
     input: {
       flex: 1,
       fontSize: 16,
-      fontFamily: "Poppins-Regular",
     },
   });

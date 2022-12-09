@@ -1,7 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import ItemOrder from "./ItemOrder";
+import { ScrollView } from 'react-native';
+import React from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ItemOrder from './ItemOrder';
+
 function OnGoingScreen() {
   return (
     <ScrollView style={{ paddingHorizontal: 10 }}>
@@ -29,15 +30,12 @@ function CompletedScreen() {
   );
 }
 const Tab = createMaterialTopTabNavigator();
-const Index = () => {
+
+export default function OrderManagement() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Đang giao" component={OnGoingScreen} />
-      <Tab.Screen name="Hoàn thành" component={CompletedScreen} />
+      <Tab.Screen name='Đang giao' component={OnGoingScreen} />
+      <Tab.Screen name='Hoàn thành' component={CompletedScreen} />
     </Tab.Navigator>
   );
-};
-
-export default Index;
-
-const styles = StyleSheet.create({});
+}

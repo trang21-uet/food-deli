@@ -1,7 +1,16 @@
-import { StyleSheet, Text, TouchableNativeFeedback, View } from "react-native";
-import React from "react";
-import { MyIcon, Pill } from "../components";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { MyIcon } from '../components';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { useNav } from '../providers';
+
+const screens = [
+  { icon: 'home', screen: 'Home', label: 'Trang chủ' },
+  { icon: 'restaurant', screen: 'RestaurantList', label: 'Quán ăn' },
+  { icon: 'cart', screen: 'Cart', label: 'Giỏ hàng' },
+  { icon: 'gift', screen: 'CouponList', label: 'Khuyến mãi' },
+  { icon: 'person', screen: 'Settings', label: 'Cài đặt' },
+];
 
 export default function Nav() {
   const theme = useTheme();
@@ -9,52 +18,70 @@ export default function Nav() {
 
   return (
     <View style={styles.nav}>
-      <NavButton icon="home" screen="Home" />
-      <NavButton icon="restaurant" screen="RestaurantList" />
-      <NavButton icon="cart" screen="Cart" />
-      <NavButton icon="gift" screen="CouponList" />
-      <NavButton icon="person" screen="Settings" />
+      {screens.map((item, index) => (
+        <NavButton {...item} key={index} />
+      ))}
     </View>
   );
 }
 
-const NavButton = ({ icon, screen }) => {
+const NavButton = ({ icon, screen, label }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   const nav = useNavigation();
+  const navbar = useNav();
+  const isFocus = navbar.screen == screen;
+
   return (
-    <Pill
-      style={styles.button}
-      borderRadius={15}
-      onPress={() => nav.navigate(screen)}
-      noShadow
-      ripple={colors.primary}
-    >
-      <MyIcon
-        size={25}
-        name={icon}
-        outline
-        color={colors.text}
-        style={{ padding: 15 }}
-      />
-    </Pill>
+    <View style={styles.button}>
+      <TouchableOpacity
+        onPress={() => {
+          navbar.setScreen(screen);
+          nav.navigate(screen);
+        }}
+        disabled={isFocus}
+      >
+        <MyIcon
+          size={25}
+          name={icon}
+          outline={!isFocus}
+          color={isFocus ? colors.primary : colors.text}
+          style={{ paddingHorizontal: 15 }}
+        />
+      </TouchableOpacity>
+
+      <Text
+        style={[
+          styles.label,
+          {
+            display: isFocus ? 'flex' : 'none',
+          },
+        ]}
+      >
+        {label}
+      </Text>
+    </View>
   );
 };
 
-const getStyles = (colors) =>
+const getStyles = colors =>
   StyleSheet.create({
     nav: {
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "space-evenly",
-      alignItems: "center",
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
       backgroundColor: colors.card,
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
-      height: 70,
+      paddingVertical: 10,
     },
     button: {
-      borderRadius: 20,
-      overflow: "hidden",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    label: {
+      color: colors.primary,
+      fontSize: 13,
+      fontFamily: 'Linotte-SemiBold',
     },
   });

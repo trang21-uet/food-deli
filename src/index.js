@@ -1,13 +1,23 @@
-import MainScreen, { Home, Search, Settings, Login, Register } from "./screens";
-import Detail from "./screens/detail/Index.js";
-import OrderManagement from "./screens/orders/ordermanagement/Index.js";
-import OrderDetail from "./screens/orders/orderdeatail/Index";
-import OrderStatus from "./screens/orders/orderstatus/Index";
-import Restaurant from "./screens/restaurant/Index";
-import SearchCategory from "./screens/food/SearchCategory";
-import OrderConfirm from "./screens/orders/orderconfirm/index";
-import AddressManager from "./screens/address/addressmanager/Index";
-import CreateAddress from "./screens/address/createaddress/Index";
+import MainScreen, {
+  Home,
+  Search,
+  Settings,
+  Login,
+  Register,
+  ForgotPassword,
+  Otp,
+  ResetPassword,
+  Restaurant,
+  CreateAddress,
+  AddressManager,
+  Detail,
+  OrderDetail,
+  OrderManagement,
+  OrderConfirm,
+  OrderStatus,
+} from './screens';
+import SearchCategory from './screens/food/SearchCategory';
+
 export {
   Home,
   Search,
@@ -15,6 +25,9 @@ export {
   MainScreen,
   Login,
   Register,
+  ForgotPassword,
+  Otp,
+  ResetPassword,
   Detail,
   OrderManagement,
   OrderDetail,

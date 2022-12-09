@@ -6,74 +6,86 @@ import {
   View,
   Dimensions,
   TextInput,
-} from "react-native";
-const width = Dimensions.get("window").width;
-import React, { useState } from "react";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import CategoriesBar from "../../components/CategoriesBar";
-import ItemDish1 from "../../components/ItemDish1";
+} from 'react-native';
+import React, { useState } from 'react';
+import { CategoriesBar, HorizontalDish, MyIcon } from '../../components';
+import { useTheme } from '@react-navigation/native';
+
+const width = Dimensions.get('window').width;
 const categories = [
   {
     id: 1,
-    title: "All",
+    title: 'All',
   },
   {
     id: 2,
-    title: "Cơm tấm",
+    title: 'Cơm tấm',
   },
   {
     id: 3,
-    title: "Gà rán",
+    title: 'Gà rán',
   },
   {
     id: 4,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 5,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
   {
     id: 6,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 7,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
   {
     id: 8,
-    title: "Trà sữa",
+    title: 'Trà sữa',
   },
   {
     id: 9,
-    title: "Bánh mì",
+    title: 'Bánh mì',
   },
 ];
-const Index = () => {
+
+export default function Restaurant() {
   const [indexCategory, setIndexCatgory] = useState(0);
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
   return (
     <ScrollView>
       <Image
         style={styles.background}
-        source={require("../../assets/images/background2.jpg")}
-        resizeMode="cover"
+        source={require('../../assets/images/background2.jpg')}
+        resizeMode='cover'
       />
       <View style={styles.containerHeader}>
         <Text style={styles.name}>KFC Hà Đông</Text>
         <View style={styles.rating}>
-          <FontAwesome name="star" size={18} color="#ffa41c" />
-          <Text style={styles.title}>4.9(223 lượt đánh giá)</Text>
+          <MyIcon
+            style={{ paddingRight: 5 }}
+            name='star'
+            size={18}
+            color='#ffa41c'
+          />
+          <Text>4.9 (223 lượt đánh giá)</Text>
         </View>
-        <Text style={styles.title}>
-          <Ionicons name="location-outline" size={18} />
-          số 43, Nguyễn Thái Học, Đống Đa, Hà Nội
+        <Text numberOfLines={1} style={{ maxWidth: '90%' }}>
+          <MyIcon
+            style={{ paddingRight: 5 }}
+            name='location-outline'
+            size={18}
+          />
+          43 Nguyễn Thái Học, Đống Đa, Hà Nội
         </Text>
       </View>
       <View style={styles.searchbar}>
-        <TextInput style={styles.input} placeholder="Tìm kiếm món ăn" />
-        <Ionicons name="search" size={20} color={"gray"} />
+        <TextInput style={styles.input} placeholder='Tìm kiếm món ăn' />
+        <MyIcon name='search' size={20} color={colors.gray} />
       </View>
 
       <CategoriesBar
@@ -82,58 +94,50 @@ const Index = () => {
         changeCategory={setIndexCatgory}
       />
       <View style={{ marginTop: 10 }}>
-        <ItemDish1 />
-        <ItemDish1 />
-        <ItemDish1 />
-        <ItemDish1 />
-        <ItemDish1 />
-        <ItemDish1 />
+        <HorizontalDish />
+        <HorizontalDish />
+        <HorizontalDish />
+        <HorizontalDish />
+        <HorizontalDish />
+        <HorizontalDish />
       </View>
     </ScrollView>
   );
-};
+}
 
-export default Index;
-
-const styles = StyleSheet.create({
-  background: {
-    height: 200,
-    width: width,
-  },
-  containerHeader: {
-    backgroundColor: "white",
-    height: 100,
-    marginTop: -50,
-    marginHorizontal: 20,
-    borderRadius: 5,
-    alignItems: "center",
-    paddingVertical: 5,
-  },
-  name: {
-    fontSize: 20,
-    fontFamily: "Poppins-Medium",
-  },
-  rating: {
-    flexDirection: "row",
-  },
-  input: {
-    fontFamily: "Poppins-Regular",
-    flex: 1,
-  },
-  title: {
-    fontFamily: "Poppins-Regular",
-    color: "gray",
-  },
-  searchbar: {
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderColor: "#e1e1e1",
-    paddingVertical: 4,
-    marginHorizontal: 20,
-    borderRadius: 5,
-    marginVertical: 22,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-});
+const getStyles = colors =>
+  StyleSheet.create({
+    background: {
+      height: 200,
+      width: width,
+    },
+    containerHeader: {
+      backgroundColor: 'white',
+      marginTop: -55,
+      marginHorizontal: 20,
+      borderRadius: 5,
+      alignItems: 'center',
+      paddingVertical: 10,
+    },
+    name: {
+      fontSize: 20,
+      fontFamily: 'Linotte-Bold',
+    },
+    rating: {
+      flexDirection: 'row',
+    },
+    input: {
+      flex: 1,
+    },
+    searchbar: {
+      borderWidth: 2,
+      paddingHorizontal: 10,
+      borderColor: colors.gray,
+      paddingVertical: 5,
+      margin: 20,
+      borderRadius: 5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+  });

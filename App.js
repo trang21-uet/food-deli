@@ -1,208 +1,195 @@
-import { StatusBar, Platform, View, Button, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useFonts } from "expo-font";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useCallback } from "react";
-import * as SplashScreen from "expo-splash-screen";
+import { StatusBar, Platform, KeyboardAvoidingView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFonts } from 'expo-font';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import React, { useCallback, useContext, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
 import {
-  Settings,
   MainScreen,
   Login,
   Register,
+  ForgotPassword,
+  Otp,
+  ResetPassword,
   Detail,
   OrderManagement,
   OrderDetail,
   OrderStatus,
-  Restaurant,
   OrderConfirm,
+  Restaurant,
   SearchCategory,
   AddressManager,
   CreateAddress,
-} from "./src";
-import { ForgotPassword } from "./src/screens";
-import { TouchableOpacity } from "react-native-gesture-handler";
+} from './src';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { BackButton } from './src/components';
+import { setCustomText } from 'react-native-global-props';
+import { NavContext } from './src/providers';
+
 const Stack = createNativeStackNavigator();
 
 const theme = {
   dark: false,
   colors: {
-    primary: "#fd7a5c",
-    background: "#f3f4f8",
-    text: "#000",
-    card: "#fff",
-    white: "#fff",
-    black: "#000",
+    primary: '#fd7a5c',
+    background: '#f3f4f8',
+    text: '#000',
+    card: '#fff',
+    white: '#fff',
+    black: '#000',
+    gray: 'gray',
   },
 };
+
 SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  const [screen, setScreen] = useState('Home');
   const [fontsLoaded] = useFonts({
-    "Poppins-Thin": require("./src/assets/font/Poppins-Thin.ttf"),
-    "Poppins-SemiBold": require("./src/assets/font/Poppins-SemiBold.ttf"),
-    "Poppins-Regular": require("./src/assets/font/Poppins-Regular.ttf"),
-    "Poppins-Medium": require("./src/assets/font/Poppins-Medium.ttf"),
-    "Poppins-Bold": require("./src/assets/font/Poppins-Bold.ttf"),
-    "Poppins-ExtraLight": require("./src/assets/font/Poppins-ExtraLight.ttf"),
-    "Poppins-Black": require("./src/assets/font/Poppins-Black.ttf"),
+    Linotte: require('./src/assets/font/Linotte/Linotte-Regular.ttf'),
+    'Linotte-Bold': require('./src/assets/font/Linotte/Linotte-Bold.ttf'),
+    'Linotte-Heavy': require('./src/assets/font/Linotte/Linotte-Heavy.ttf'),
+    'Linotte-SemiBold': require('./src/assets/font/Linotte/Linotte-SemiBold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
+      setCustomText({ style: { fontFamily: 'Linotte' } });
     }
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <View
-      style={{
-        flex: 1,
-        marginTop: Platform.OS == "android" ? StatusBar.currentHeight : 0,
-        fontFamily: "Poppins-Regular",
-      }}
-      onLayout={onLayoutRootView}
-    >
-      <NavigationContainer theme={theme}>
-        <Stack.Navigator initialRouteName="MainScreen">
-          <Stack.Screen
-            name="MainScreen"
-            options={{ headerShown: false }}
-            component={MainScreen}
-          />
-          <Stack.Screen
-            name="Settings"
-            options={{
-              title: "",
-              headerTransparent: true,
-            }}
-            component={Settings}
-          />
-          <Stack.Screen
-            name="Login"
-            options={{ headerShown: false }}
-            component={Login}
-          />
-          <Stack.Screen
-            name="Register"
-            options={{ headerShown: false }}
-            component={Register}
-          />
-          <Stack.Screen
-            name="ForgotPassword"
-            options={{ headerShown: false }}
-            component={ForgotPassword}
-          />
-          <Stack.Screen
-            name="OrderConfirm"
-            component={OrderConfirm}
-            options={{
-              title: "Xác nhận mua hàng",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="Detail"
-            options={{
-              title: "",
-              headerTransparent: true,
-            }}
-            component={Detail}
-          />
-          <Stack.Screen
-            name="Restaurant"
-            options={{
-              title: "",
-              headerTransparent: true,
-            }}
-            component={Restaurant}
-          />
-          <Stack.Screen
-            name="OrderManagement"
-            options={{
-              title: "Quản lý đơn hàng",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-            }}
-            component={OrderManagement}
-          />
-          <Stack.Screen
-            name="SearchCategory"
-            options={({ route }) => ({
-              title: route.params.name,
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-              headerRight: () => (
-                <TouchableOpacity>
-                  <FontAwesome name="filter" size={20} />
-                </TouchableOpacity>
-              ),
-            })}
-            component={SearchCategory}
-          />
-          <Stack.Screen
-            name="OrderDetail"
-            options={{
-              title: "Thông tin đơn hàng",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-                fontWeight: "200",
-              },
-            }}
-            component={OrderDetail}
-          />
-          <Stack.Screen
-            name="OrderStatus"
-            options={{
-              title: "Tình trạng đơn hàng",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-            }}
-            component={OrderStatus}
-          />
-          <Stack.Screen
-            name="AddressManager"
-            options={{
-              title: "Địa chỉ của tôi",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-            }}
-            component={AddressManager}
-          />
-          <Stack.Screen
-            name="CreateAddress"
-            options={{
-              title: "Tạo địa chỉ mới",
-              headerTitleAlign: "center",
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontFamily: "Poppins-Medium",
-              },
-            }}
-            component={CreateAddress}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <NavigationContainer theme={theme}>
+      <NavContext.Provider value={{ screen, setScreen }}>
+        <KeyboardAvoidingView
+          style={{
+            flex: 1,
+            marginTop: Platform.OS == 'android' ? StatusBar.currentHeight : 0,
+          }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          onLayout={onLayoutRootView}
+        >
+          <Stack.Navigator
+            initialRouteName='MainScreen'
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name='MainScreen' component={MainScreen} />
+            <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Register' component={Register} />
+            <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+            <Stack.Screen name='Otp' component={Otp} />
+            <Stack.Screen name='ResetPassword' component={ResetPassword} />
+            <Stack.Screen
+              name='OrderConfirm'
+              component={OrderConfirm}
+              options={{
+                title: 'Xác nhận mua hàng',
+                headerShown: true,
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+            />
+            <Stack.Screen
+              name='DishDetail'
+              component={Detail}
+              options={{
+                title: '',
+                headerShown: true,
+                headerTransparent: true,
+                headerLeft: () => <BackButton />,
+              }}
+            />
+            <Stack.Screen
+              name='Restaurant'
+              component={Restaurant}
+              options={{
+                title: '',
+                headerShown: true,
+                headerTransparent: true,
+                headerLeft: () => <BackButton />,
+              }}
+            />
+            <Stack.Screen
+              name='OrderManagement'
+              options={{
+                title: 'Quản lý đơn hàng',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={OrderManagement}
+            />
+            <Stack.Screen
+              name='SearchCategory'
+              options={({ route }) => ({
+                headerShown: true,
+                title: route.params.name,
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+                headerRight: () => (
+                  <TouchableOpacity>
+                    <FontAwesome name='filter' size={20} />
+                  </TouchableOpacity>
+                ),
+              })}
+              component={SearchCategory}
+            />
+            <Stack.Screen
+              name='OrderDetail'
+              options={{
+                title: 'Thông tin đơn hàng',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: {
+                  fontWeight: '200',
+                },
+              }}
+              component={OrderDetail}
+            />
+            <Stack.Screen
+              name='OrderStatus'
+              options={{
+                title: 'Tình trạng đơn hàng',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={OrderStatus}
+            />
+            <Stack.Screen
+              name='AddressManager'
+              options={{
+                title: 'Địa chỉ của tôi',
+                headerShown: true,
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: {
+                  fontFamily: 'Linotte-Bold',
+                },
+              }}
+              component={AddressManager}
+            />
+            <Stack.Screen
+              name='CreateAddress'
+              options={{
+                title: 'Tạo địa chỉ mới',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={CreateAddress}
+            />
+          </Stack.Navigator>
+        </KeyboardAvoidingView>
+      </NavContext.Provider>
+    </NavigationContainer>
   );
 }

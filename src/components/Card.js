@@ -1,10 +1,11 @@
-import { View, Text, TouchableNativeFeedback } from "react-native";
-import React from "react";
+import { View, TouchableNativeFeedback } from 'react-native';
+import React from 'react';
 
-export default function Pill({
+export default function Card({
   borderRadius,
   marginHorizontal,
   marginVertical,
+  disabled,
   onPress,
   noShadow,
   ripple,
@@ -20,7 +21,7 @@ export default function Pill({
           marginVertical,
         },
         !noShadow && {
-          shadowColor: "#000",
+          shadowColor: '#000',
           shadowOffset: {
             width: 0,
             height: 2,
@@ -32,8 +33,9 @@ export default function Pill({
       ]}
     >
       <TouchableNativeFeedback
+        disabled={disabled}
         onPress={onPress}
-        background={TouchableNativeFeedback.Ripple(ripple || "#ccc", true)}
+        background={TouchableNativeFeedback.Ripple(ripple || '#ccc', true)}
       >
         <View {...style}>{children}</View>
       </TouchableNativeFeedback>

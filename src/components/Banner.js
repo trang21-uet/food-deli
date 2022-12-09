@@ -1,45 +1,54 @@
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { WIDTH } from "../constants/Dimension";
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { WIDTH } from '../constants/Dimension';
+import Card from './Card';
 
 const Banner = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.bannerContainer}>
-        <View>
-          <Text style={{ fontFamily: "Poppins-Medium", fontSize: 18 }}>
-            <Text style={{ color: "white" }}>FOOD</Text> DELIVERY
-          </Text>
+      <View>
+        <Text
+          style={{
+            fontFamily: 'Linotte-Bold',
+            fontSize: 20,
+          }}
+        >
+          <Text style={{ color: 'white' }}>FOOD</Text> DELIVERY
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'Linotte-SemiBold',
+            fontSize: 16,
+          }}
+        >
+          Món gì cũng có
+        </Text>
+        <Card
+          borderRadius={5}
+          marginVertical={10}
+          style={{
+            backgroundColor: 'red',
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+          }}
+        >
           <Text
             style={{
-              fontFamily: "Poppins-Regular",
-              marginTop: -10,
-              fontSize: 12,
+              fontSize: 16,
+              color: 'white',
+              borderRadius: 5,
             }}
           >
-            Món gì cũng có
+            Khám phá ngay
           </Text>
-          <TouchableOpacity style={styles.btn}>
-            <Text
-              style={{
-                fontFamily: "Poppins-Regular",
-                color: "white",
-                borderRadius: 5,
-              }}
-            >
-              Khám phá ngay
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("../assets/images/delivery.png")}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
+        </Card>
       </View>
+
+      <Image
+        source={require('../assets/images/delivery.png')}
+        style={styles.image}
+        resizeMode='contain'
+      />
     </View>
   );
 };
@@ -49,29 +58,19 @@ export default Banner;
 const styles = StyleSheet.create({
   container: {
     width: WIDTH,
-  },
-  bannerContainer: {
-    paddingVertical: 15,
-    flexDirection: "row",
-    backgroundColor: "#fec363",
-    justifyContent: "space-around",
-  },
-  text: {
-    height: 50,
-    justifyContent: "space-around",
-    marginBottom: 10,
+    paddingVertical: 30,
+    flexDirection: 'row',
+    backgroundColor: '#fec363',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   image: {
-    width: 120,
-    height: 120,
-  },
-  imageContainer: {
-    justifyContent: "flex-end",
-    paddingRight: 25,
+    width: 100,
+    height: 100,
   },
   btn: {
-    backgroundColor: "red",
-    alignSelf: "baseline",
+    backgroundColor: 'red',
+    alignSelf: 'baseline',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 5,

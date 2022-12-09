@@ -6,35 +6,39 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-} from "react-native";
-import React, { useState } from "react";
-import { MyIcon } from "../../components";
-import { useNavigation } from "@react-navigation/native";
-import Rate from "../../components/Rate";
-import Review from "../../screens/detail/comment/Index";
-var width = Dimensions.get("window").width;
+} from 'react-native';
+import React, { useState } from 'react';
+import { MyButton, MyIcon } from '../../components';
+import Rate from '../../components/Rate';
+import Review from './review';
+import { useTheme } from '@react-navigation/native';
+
+var width = Dimensions.get('window').width;
 const images = [
   {
     id: 1,
-    url: require("../../assets/images/phobo.png"),
+    url: require('../../assets/images/phobo.png'),
   },
   {
     id: 1,
-    url: require("../../assets/images/phobo.png"),
+    url: require('../../assets/images/phobo.png'),
   },
   {
     id: 1,
-    url: require("../../assets/images/phobo.png"),
+    url: require('../../assets/images/phobo.png'),
   },
   {
     id: 1,
-    url: require("../../assets/images/phobo.png"),
+    url: require('../../assets/images/phobo.png'),
   },
 ];
-const Index = () => {
-  const nav = useNavigation();
+
+export default function Detail() {
   const [imgActive, setimgActive] = useState(0);
-  const onchange = (nativeEvent) => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
+  const onchange = nativeEvent => {
     if (nativeEvent) {
       const slide = Math.ceil(
         nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
@@ -58,7 +62,8 @@ const Index = () => {
             <Image
               style={styles.wrap}
               source={image.url}
-              resizeMode="stretch"
+              resizeMode='stretch'
+              key={index}
             />
           ))}
         </ScrollView>
@@ -79,11 +84,11 @@ const Index = () => {
         </Text>
         <Rate size={18} numberRate={4.6} />
         <View style={styles.price}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text
               style={{
                 fontSize: 22,
-                fontFamily: "Poppins-Medium",
+                fontFamily: 'Linotte-SemiBold',
                 marginRight: 10,
               }}
             >
@@ -92,76 +97,78 @@ const Index = () => {
             <Text
               style={{
                 fontSize: 16,
-                fontFamily: "Poppins-Medium",
-                color: "gray",
-                textDecorationLine: "line-through",
+                color: colors.gray,
+                textDecorationLine: 'line-through',
               }}
             >
               120.000 Đ
             </Text>
           </View>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={{ color: "white", fontFamily: "Poppins-Medium" }}>
-              Mua ngay
-            </Text>
-          </TouchableOpacity>
+          <MyButton
+            style={styles.btn}
+            title='Mua ngay'
+            textStyle={{
+              color: colors.white,
+              fontSize: 16,
+              textTransform: 'uppercase',
+            }}
+          />
         </View>
         <Review />
       </View>
     </ScrollView>
   );
-};
+}
 
-export default Index;
+const getStyles = colors =>
+  StyleSheet.create({
+    wrap: {
+      width: width,
+      height: 250,
+    },
+    name: {
+      fontSize: 25,
+      fontFamily: 'Linotte-SemiBold',
+    },
+    detail: {
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+    },
+    description: {
+      color: colors.gray,
+      marginBottom: 10,
+    },
 
-const styles = StyleSheet.create({
-  wrap: {
-    width: width,
-    height: 250,
-  },
-  name: {
-    fontSize: 25,
-    fontFamily: "Poppins-Medium",
-  },
-  detail: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  description: {
-    color: "gray",
-    fontFamily: "Poppins-Regular",
-    marginBottom: 5,
-  },
-
-  wrapDot: {
-    flexDirection: "row",
-    marginTop: 5,
-    paddingHorizontal: 4,
-    alignSelf: "center",
-  },
-  dotActive: {
-    margin: 3,
-    height: 8,
-    borderRadius: 4,
-    width: 25,
-    backgroundColor: "#FF4E3C",
-  },
-  dot: {
-    margin: 3,
-    height: 8,
-    width: 8,
-    borderRadius: 4,
-    backgroundColor: "#e1e1e1",
-  },
-  price: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  btn: {
-    backgroundColor: "#FF4E3C",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
-});
+    wrapDot: {
+      flexDirection: 'row',
+      marginTop: 5,
+      paddingHorizontal: 4,
+      alignSelf: 'center',
+    },
+    dotActive: {
+      margin: 3,
+      height: 8,
+      borderRadius: 4,
+      width: 25,
+      backgroundColor: colors.primary,
+    },
+    dot: {
+      margin: 3,
+      height: 8,
+      width: 8,
+      borderRadius: 4,
+      backgroundColor: '#e1e1e1',
+    },
+    price: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    btn: {
+      backgroundColor: colors.primary,
+      paddingTop: 5,
+      paddingBottom: 8,
+      paddingHorizontal: 10,
+      borderRadius: 5,
+    },
+  });
