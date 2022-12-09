@@ -7,11 +7,13 @@ import {
 } from 'react-native';
 import React from 'react';
 import ItemFood from './ItemFood';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import Review from './review/index.js';
 
 export default function OrderDetail() {
   const nav = useNavigation();
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -53,32 +55,33 @@ export default function OrderDetail() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-  },
+const getStyles = colors =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: 10,
+    },
 
-  header: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderColor: '#e1e1e1',
-  },
-  btn1: {
-    backgroundColor: '#FF4E3C',
-    paddingVertical: 2,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
+    header: {
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderColor: '#e1e1e1',
+    },
+    btn1: {
+      backgroundColor: colors.primary,
+      paddingVertical: 2,
+      paddingHorizontal: 10,
+      borderRadius: 5,
+    },
 
-  listFood: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    paddingVertical: 5,
-    marginTop: 10,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 15,
-  },
-});
+    listFood: {
+      backgroundColor: 'white',
+      borderRadius: 10,
+      paddingVertical: 5,
+      marginTop: 10,
+    },
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 15,
+    },
+  });

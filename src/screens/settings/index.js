@@ -6,10 +6,8 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { windowWidth } from '../../constants/Dimension';
-import Materialicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MyIcon } from '../../components';
 const data = [
   {

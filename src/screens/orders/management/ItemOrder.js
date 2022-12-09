@@ -17,7 +17,9 @@ const ItemOrder = () => {
       />
       <View style={styles.detail}>
         <View>
-          <Text>Cửa hàng: KFC Hà Đông</Text>
+          <Text style={{ fontFamily: 'Linotte-SemiBold' }}>
+            Cửa hàng: KFC Hà Đông
+          </Text>
           <Text style={styles.title}>Mã đơn hàng: HFJFB99343</Text>
           <Text style={styles.title}>Số lượng: 9 món</Text>
           <View style={{ flex: 1 }}>
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     marginLeft: 10,
-    paddingVertical: 4,
+    paddingVertical: 5,
     justifyContent: 'space-between',
   },
   title: {

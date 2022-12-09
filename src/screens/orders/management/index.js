@@ -33,7 +33,11 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function OrderManagement() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: { fontFamily: 'Linotte-SemiBold', fontSize: 16 },
+      }}
+    >
       <Tab.Screen name='Đang giao' component={OnGoingScreen} />
       <Tab.Screen name='Hoàn thành' component={CompletedScreen} />
     </Tab.Navigator>

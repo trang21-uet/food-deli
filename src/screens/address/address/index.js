@@ -9,6 +9,8 @@ import {
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import { MyButton } from '../../../components';
+
 const data = [
   {
     id: 1,
@@ -52,20 +54,16 @@ export default function AddressManager() {
       {data.map((element, index) => (
         <Item key={index} item={element} />
       ))}
-      <TouchableOpacity
+      <MyButton
         style={styles.btn}
-        activeOpacity={0.8}
-        onPress={() => nav.navigate('CreateAddress')}
-      >
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 16,
-          }}
-        >
-          THÊM ĐỊA CHỈ MỚI
-        </Text>
-      </TouchableOpacity>
+        title='Thêm địa chỉ mới'
+        textStyle={{
+          fontFamily: 'Linotte-SemiBold',
+          fontSize: 16,
+          color: 'white',
+          textTransform: 'uppercase',
+        }}
+      />
     </ScrollView>
   );
 }
@@ -127,11 +125,12 @@ const getStyles = colors =>
     },
     btn: {
       backgroundColor: colors.primary,
-      paddingVertical: 5,
+      paddingTop: 10,
+      paddingBottom: 13,
       paddingHorizontal: 10,
       alignItems: 'center',
       borderRadius: 5,
-      marginTop: 8,
+      marginTop: 10,
       marginHorizontal: 10,
     },
   });

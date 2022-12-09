@@ -13,7 +13,16 @@ const OrderCollapse = () => {
             color={'gray'}
             activeOpacity={0.8}
           />
-          <Text> KFC Hà Đông</Text>
+          <Text
+            style={{
+              fontFamily: 'Linotte-SemiBold',
+              fontSize: 16,
+              marginTop: -3,
+              marginLeft: 5,
+            }}
+          >
+            KFC Hà Đông
+          </Text>
         </View>
         <Text
           style={{
@@ -26,7 +35,7 @@ const OrderCollapse = () => {
         <Text style={{ fontSize: 16 }}>500.000 Đ</Text>
       </View>
       <TouchableOpacity>
-        <Text style={styles.title}>Remove</Text>
+        <Text style={styles.title}>Xoá</Text>
       </TouchableOpacity>
     </View>
   );
@@ -37,6 +46,7 @@ export default OrderCollapse;
 const styles = StyleSheet.create({
   title: {
     color: 'gray',
+    textDecorationLine: 'underline',
   },
   order: {
     flexDirection: 'row',

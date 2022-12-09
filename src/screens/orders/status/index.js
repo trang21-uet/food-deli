@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
 import React from 'react';
 import ItemStatus from './ItemStatus';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { MyButton } from '../../../components';
 
 const status = [
   {
@@ -43,10 +44,12 @@ const status = [
 ];
 
 export default function OrderStatus() {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   const nav = useNavigation();
   return (
     <View style={styles.container}>
-      {status.map((item, index) => (
+      {status.map(item => (
         <ItemStatus
           key={item.id}
           title={item.title}
@@ -54,19 +57,34 @@ export default function OrderStatus() {
           active={item.active}
         />
       ))}
-      <Button
+      <MyButton
+        style={styles.btn}
         title='Về trang chủ'
+        textStyle={{
+          fontFamily: 'Linotte-SemiBold',
+          fontSize: 16,
+          color: colors.white,
+          textTransform: 'uppercase',
+        }}
         onPress={() => nav.navigate('MainScreen')}
-      ></Button>
+      ></MyButton>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 15,
-    paddingRight: 10,
-    flex: 1,
-    marginTop: 35,
-  },
-});
+const getStyles = colors =>
+  StyleSheet.create({
+    container: {
+      paddingLeft: 20,
+      paddingRight: 15,
+      flex: 1,
+      marginTop: 35,
+    },
+    btn: {
+      width: '100%',
+      backgroundColor: colors.primary,
+      paddingVertical: 10,
+      alignItems: 'center',
+      borderRadius: 10,
+    },
+  });

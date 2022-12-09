@@ -119,6 +119,7 @@ export default function App() {
             <Stack.Screen
               name='OrderManagement'
               options={{
+                headerShown: true,
                 title: 'Quản lý đơn hàng',
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
@@ -158,6 +159,7 @@ export default function App() {
               name='OrderStatus'
               options={{
                 title: 'Tình trạng đơn hàng',
+                headerShown: true,
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
                 headerTitleStyle: { fontFamily: 'Linotte-Bold' },
