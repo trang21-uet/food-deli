@@ -63,7 +63,6 @@ export default function Register() {
         ToastAndroid.show('Đăng ký tài khoản thành công', 2000);
         nav.navigate('Home');
         setScreen('Home');
-        console.info(data);
       } catch (error) {
         console.log(error);
       }

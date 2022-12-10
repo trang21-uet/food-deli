@@ -11,6 +11,8 @@ import ItemCounpon from './ItemCounpon';
 import HorizontalDish from './HorizontalDish';
 import VerticalDish from './VerticalDish';
 import BackButton from './BackButton';
+import Error from './Error';
+import Loading from './Loading';
 
 export {
   MyIcon,
@@ -26,4 +28,6 @@ export {
   HorizontalDish,
   VerticalDish,
   BackButton,
+  Error,
+  Loading,
 };

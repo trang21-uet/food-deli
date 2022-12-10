@@ -1,20 +1,31 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import MyIcon from './MyIcon';
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
-const ButtonAll = ({ title }) => {
+const ButtonAll = ({ title, id }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const nav = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{title}</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          nav.navigate('SearchCategory', {
+            id: 9,
+            name: title,
+          })
+        }
+      >
         <MyIcon size={25} name={'arrow-forward'} />
       </TouchableOpacity>
     </View>
   );
 };
+
 const getStyles = colors =>
   StyleSheet.create({
     container: {

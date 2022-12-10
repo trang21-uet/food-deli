@@ -1,82 +1,162 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Materialicons from 'react-native-vector-icons/MaterialIcons';
 import MyIcon from './MyIcon';
-import { useTheme } from '@react-navigation/native';
-import Card from './Card';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import numberWithCommas from '../constants/function';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ItemOrder = () => {
+const ItemOrder = ({ name, id, foods }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const nav = useNavigation();
+  const [data, setData] = useState(foods);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.shop}>
-        <View style={{ flexDirection: 'row' }}>
-          <Materialicons
-            name='storefront'
-            size={25}
-            color={colors.gray}
-            activeOpacity={0.8}
-          />
-          <Text style={styles.shopname}>KFC Hà Đông</Text>
-        </View>
-        <TouchableOpacity>
+    data.length > 0 && (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => nav.navigate('Restaurant', { id })}>
+          <View style={styles.shop}>
+            <View style={{ flexDirection: 'row' }}>
+              <Materialicons
+                name='storefront'
+                size={25}
+                color={colors.gray}
+                activeOpacity={0.8}
+              />
+              <Text style={styles.shopname}>{name}</Text>
+            </View>
+            <MyIcon name='chevron-forward' size={25} />
+          </View>
+        </TouchableOpacity>
+        {data.map((item, index) => (
+          <ItemProduct key={index} {...item} {...{ data, setData }} />
+        ))}
+        <TouchableOpacity style={styles.pill}>
+          <Text
+            style={{
+              fontFamily: 'Linotte-SemiBold',
+              fontSize: 16,
+              marginTop: -4,
+            }}
+          >
+            Chọn mã giảm giá
+          </Text>
           <MyIcon name='chevron-forward' size={25} />
         </TouchableOpacity>
       </View>
-      {[1, 2, 2].map((item, index) => (
-        <ItemProduct key={index} />
-      ))}
-      <Card noShadow marginVertical={15} borderRadius={10} style={styles.pill}>
-        <Text
-          style={{
-            fontFamily: 'Linotte-SemiBold',
-            fontSize: 16,
-            marginTop: -4,
-          }}
-        >
-          Chọn mã giảm giá
-        </Text>
-        <MyIcon name='chevron-forward' size={25} />
-      </Card>
-    </View>
+    )
   );
 };
 
-const ItemProduct = () => {
+const ItemProduct = ({ amount, food, data, setData }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
-  return (
-    <View style={styles.containerProduct}>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/garan.jpg')}
-        resizeMode={'cover'}
-      />
-      <View style={styles.info}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.name}>Gà chiên xù</Text>
-          <Text style={styles.description}>Gà siêu giòn.</Text>
-        </View>
+  const [quantity, setQuantity] = useState(amount);
 
-        <Text style={styles.price}>40.000 Đ</Text>
-      </View>
-      <View>
-        <View style={styles.containerButton}>
-          <TouchableOpacity style={styles.btn} activeOpacity={0.6}>
-            <Text style={styles.btncontent}>-</Text>
-          </TouchableOpacity>
-          <View style={{ paddingHorizontal: 8 }}>
-            <Text>12</Text>
+  const add = async () => {
+    try {
+      let current = await AsyncStorage.getItem('cart');
+      current = JSON.parse(current);
+      current.forEach(({ foods }, i) => {
+        foods.forEach((item, j) => {
+          if (item.food.name === food.name) {
+            current[i].foods[j].amount++;
+          }
+        });
+      });
+
+      await AsyncStorage.setItem('cart', JSON.stringify(current));
+    } catch (error) {}
+  };
+
+  const reduce = async () => {
+    try {
+      let current = await AsyncStorage.getItem('cart');
+      current = JSON.parse(current);
+      current.forEach(({ foods }, i) => {
+        foods.forEach((item, j) => {
+          if (item.food.name === food.name) {
+            let amount = current[i].foods[j].amount--;
+            if (amount > 1) current[i].foods[j].amount--;
+            else {
+              current[i].foods.splice(j, 1);
+              if (current[i].foods.length === 0) {
+                setData([]);
+              }
+            }
+          }
+        });
+      });
+
+      await AsyncStorage.setItem('cart', JSON.stringify(current));
+    } catch (error) {}
+  };
+
+  return (
+    quantity > 0 && (
+      <View style={styles.containerProduct}>
+        <Image
+          style={styles.image}
+          source={{ uri: food.images[0].url }}
+          resizeMode={'cover'}
+        />
+        <TouchableOpacity
+          style={{
+            padding: 5,
+            backgroundColor: colors.primary,
+            borderRadius: 100,
+            position: 'absolute',
+            right: 0,
+            top: 0,
+          }}
+          onPress={() => setData(data.filter(item => item.food.id === food.id))}
+        >
+          <MyIcon name='trash' outline size={15} color={colors.white} />
+        </TouchableOpacity>
+        <View style={styles.info}>
+          <Text style={styles.name}>{food.name}</Text>
+          <View style={{ flex: 1, width: '100%' }}>
+            <Text numberOfLines={2} style={styles.description}>
+              {food.description}
+            </Text>
           </View>
 
-          <TouchableOpacity style={styles.btn} activeOpacity={0.6}>
-            <Text style={styles.btncontent}>+</Text>
-          </TouchableOpacity>
+          <Text style={styles.price}>{numberWithCommas(food.price)} Đ</Text>
         </View>
-        <Text style={styles.total}>80.000 Đ</Text>
+        <View style={{ alignItems: 'flex-end' }}>
+          <View style={styles.containerButton}>
+            <TouchableOpacity
+              style={styles.btn}
+              activeOpacity={0.6}
+              onPress={async () => {
+                setQuantity(quantity - 1);
+                await reduce();
+              }}
+            >
+              <Text style={styles.btncontent}>-</Text>
+            </TouchableOpacity>
+            <View style={{ paddingHorizontal: 8 }}>
+              <Text>{quantity}</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.btn}
+              activeOpacity={0.6}
+              onPress={async () => {
+                setQuantity(quantity + 1);
+                await add();
+              }}
+            >
+              <Text style={styles.btncontent}>+</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.total}>
+            {numberWithCommas(food.price * quantity)} Đ
+          </Text>
+        </View>
       </View>
-    </View>
+    )
   );
 };
 
@@ -115,7 +195,7 @@ const getStyles = colors =>
       alignItems: 'center',
     },
     btncontent: {
-      marginTop: -3,
+      marginTop: -5,
       fontSize: 18,
     },
     name: {
@@ -125,21 +205,25 @@ const getStyles = colors =>
     },
     description: {
       color: colors.gray,
-      lineHeight: 16,
-      maxWidth: '90%',
+      lineHeight: 13,
+      fontSize: 12,
+      maxWidth: '100%',
     },
     price: {
       fontFamily: 'Linotte-SemiBold',
       color: '#fc795d',
+      fontSize: 16,
     },
     image: {
-      height: 70,
+      height: 80,
       borderRadius: 8,
-      width: 70,
+      width: 80,
     },
     info: {
       flex: 1,
       paddingLeft: 10,
+      justifyContent: 'flex-end',
+      paddingTop: 3,
     },
     containerButton: {
       flexDirection: 'row',
@@ -151,7 +235,7 @@ const getStyles = colors =>
       marginTop: 15,
       paddingBottom: 15,
       borderBottomWidth: 1,
-      borderBottomColor: colors.gray,
+      borderBottomColor: '#e1e1e1',
       borderRadius: 10,
     },
     total: {
@@ -160,6 +244,7 @@ const getStyles = colors =>
     },
     pill: {
       borderWidth: 2,
+      marginVertical: 10,
       borderColor: '#e1e1e1',
       borderRadius: 10,
       flexDirection: 'row',

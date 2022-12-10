@@ -34,7 +34,6 @@ export default function Otp() {
         // } else {
         nav.navigate('ResetPassword', { params: { username, token: data } });
       }
-      console.info(data);
     } catch (error) {
       console.log(error);
     }

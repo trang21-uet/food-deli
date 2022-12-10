@@ -9,26 +9,38 @@ const Rate = ({ size, numberRate }) => {
 
   return (
     <View style={styles.row}>
-      <View style={styles.row}>
-        {[...Array(full).keys()].map((_, index) => (
-          <FontAwesome
-            size={size}
-            style={styles.star}
-            name='star'
-            color='#ffa41c'
-            key={index}
-          />
-        ))}
-        {[...Array(half).keys()].map((_, index) => (
-          <FontAwesome
-            size={size}
-            style={styles.star}
-            name='star-half-empty'
-            color='#ffa41c'
-            key={index}
-          />
-        ))}
-        {[...Array(5 - full - half).keys()].map((_, index) => (
+      {numberRate !== 0 ? (
+        <>
+          {[...Array(full).keys()].map((_, index) => (
+            <FontAwesome
+              size={size}
+              style={styles.star}
+              name='star'
+              color='#ffa41c'
+              key={index}
+            />
+          ))}
+          {[...Array(half).keys()].map((_, index) => (
+            <FontAwesome
+              size={size}
+              style={styles.star}
+              name='star-half-empty'
+              color='#ffa41c'
+              key={index}
+            />
+          ))}
+          {[...Array(5 - full - half).keys()].map((_, index) => (
+            <FontAwesome
+              size={size}
+              style={styles.star}
+              name='star'
+              color='#d1d1d1'
+              key={index}
+            />
+          ))}
+        </>
+      ) : (
+        [0, 0, 0, 0, 0].map((_, index) => (
           <FontAwesome
             size={size}
             style={styles.star}
@@ -36,8 +48,8 @@ const Rate = ({ size, numberRate }) => {
             color='#d1d1d1'
             key={index}
           />
-        ))}
-      </View>
+        ))
+      )}
     </View>
   );
 };

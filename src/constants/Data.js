@@ -1,32 +1,32 @@
 export const CATEGORIES = [
   {
     id: 1,
-    title: 'Cơm tấm',
+    title: 'Cơm',
     url: require('../assets/images/rice.png'),
   },
   {
-    id: 2,
+    id: 4,
     title: 'Phở',
     url: require('../assets/images/ramen.png'),
   },
   {
-    id: 3,
+    id: 6,
     title: 'Cà phê',
     url: require('../assets/images/cup.png'),
   },
   {
-    id: 4,
+    id: 5,
     title: 'Bánh mì',
     url: require('../assets/images/bakery.png'),
   },
   {
-    id: 5,
+    id: 3,
     title: 'Gà',
     url: require('../assets/images/chicken.png'),
   },
   {
-    id: 6,
-    title: 'Trà sữa',
+    id: 2,
+    title: 'Đồ uống',
     url: require('../assets/images/milk-tea.png'),
   },
   {
@@ -41,4 +41,5 @@ export const CATEGORIES = [
   },
 ];
 
-export const host = 'https://fooddelivery.onrender.com';
+export const host =
+  'https://799d-2402-800-61ae-e652-571-ded2-4ad0-b616.ap.ngrok.io';

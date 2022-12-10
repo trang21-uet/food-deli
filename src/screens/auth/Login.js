@@ -55,7 +55,6 @@ export default function Login() {
         ToastAndroid.show('Đăng nhập thành công', 2000);
         setScreen('Home');
         nav.navigate('Home');
-        console.info(data);
       } catch (error) {
         console.log(error);
       }

@@ -3,10 +3,21 @@ import React from 'react';
 import Rate from './Rate';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Card from './Card';
+import numberWithCommas from '../constants/function';
+import Materialicons from 'react-native-vector-icons/MaterialIcons';
 
 const width = Dimensions.get('window').width;
 
-export default function VerticalDish() {
+export default function VerticalDish({
+  id,
+  name,
+  description,
+  restaurant,
+  noRate,
+  price,
+  oldPrice,
+  images,
+}) {
   const nav = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -14,23 +25,45 @@ export default function VerticalDish() {
   return (
     <Card
       borderRadius={10}
-      onPress={() => nav.navigate('DishDetail')}
+      onPress={() =>
+        nav.navigate('DishDetail', { id, restaurantId: restaurant.id })
+      }
       style={styles.container}
     >
       <Image
         style={styles.image}
-        source={require('../assets/images/garan.jpg')}
+        source={{
+          uri: images[0].url,
+        }}
         resizeMode={'cover'}
       />
       <View style={styles.info}>
-        <Text style={styles.name}>Gà chiên xù</Text>
-        <View style={styles.box}>
-          <Rate size={15} numberRate={4.5} />
-          <Text style={{ color: colors.gray }}> 4.5</Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={styles.price}>40.000 Đ</Text>
-          <Text style={styles.oldprice}>50.000 Đ</Text>
+        <Text style={styles.name}>{name}</Text>
+        {!noRate && (
+          <View style={styles.box}>
+            <Materialicons
+              name='storefront'
+              size={20}
+              color={colors.gray}
+              activeOpacity={0.8}
+              style={{ marginRight: 5 }}
+            />
+            {restaurant.numberRate !== 0 && (
+              <Rate
+                size={15}
+                numberRate={Math.floor(restaurant.rate * 10) / 10}
+              />
+            )}
+            <Text style={{ color: colors.gray, fontSize: 13 }}>
+              {restaurant.numberRate === 0
+                ? 'Chưa có đánh giá'
+                : '(' + Math.floor(restaurant.rate * 10) / 10 + ')'}
+            </Text>
+          </View>
+        )}
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+          <Text style={styles.price}>{numberWithCommas(price)} Đ</Text>
+          <Text style={styles.oldprice}>{numberWithCommas(oldPrice)} Đ</Text>
         </View>
       </View>
     </Card>
@@ -45,15 +78,16 @@ const getStyles = colors =>
       overflow: 'hidden',
     },
     name: {
-      fontSize: 18,
+      fontSize: 15,
       fontFamily: 'Linotte-SemiBold',
+      height: 40,
     },
     box: {
       flexDirection: 'row',
       alignItems: 'center',
     },
     price: {
-      fontSize: 14,
+      fontSize: 16,
       marginRight: 5,
       color: '#fc795d',
       fontFamily: 'Linotte-SemiBold',
@@ -61,7 +95,6 @@ const getStyles = colors =>
     oldprice: {
       color: colors.gray,
       fontSize: 12,
-
       textDecorationLine: 'line-through',
     },
     info: {

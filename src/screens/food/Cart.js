@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@react-navigation/native';
-import { ItemOrder, MyButton } from '../../components';
+import { Error, ItemOrder, MyButton } from '../../components';
 import { useNavigation } from '@react-navigation/native';
+import numberWithCommas from '../../constants/function';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const data = [
   {
@@ -44,8 +46,29 @@ const data = [
 export default function Cart() {
   const { colors } = useTheme();
   const styles = getStyles(colors);
-  const navigation = useNavigation();
-  return (
+  const nav = useNavigation();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+
+  const request = async () => {
+    try {
+      const response = await AsyncStorage.getItem('cart');
+      // console.log(response);
+      setData(JSON.parse(response));
+      setTotal(0);
+      setLoading(false);
+      // console.log(json);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  return loading || !data ? (
+    <Error code='empty-cart' />
+  ) : (
     <View style={{ flex: 1, paddingHorizontal: 10 }}>
       <View>
         <Text
@@ -60,35 +83,36 @@ export default function Cart() {
         </Text>
       </View>
       <ScrollView style={{ flex: 1 }}>
-        {data.map((element, index) => (
-          <ItemOrder key={index} />
-        ))}
-        <ItemOrder />
-        <ItemOrder />
+        {data !== null &&
+          data.map((item, index) => <ItemOrder key={index} {...item} />)}
       </ScrollView>
-      <View style={styles.rowCheckout}>
-        <Text style={styles.title}>Tổng chi phí:</Text>
-        <Text
-          style={{
-            ...styles.title,
-            color: colors.primary,
-          }}
-        >
-          125.000 Đ
-        </Text>
-      </View>
-      <MyButton
-        style={styles.btn}
-        textStyle={{
-          fontFamily: 'Linotte-Bold',
-          color: colors.white,
-          fontSize: 16,
-          textTransform: 'uppercase',
-          paddingBottom: 3,
-        }}
-        title='Mua hàng (3)'
-        onPress={() => navigation.navigate('OrderConfirm')}
-      />
+      {data !== null && (
+        <>
+          <View style={styles.rowCheckout}>
+            <Text style={styles.title}>Tổng chi phí:</Text>
+            <Text
+              style={{
+                ...styles.title,
+                color: colors.primary,
+              }}
+            >
+              {numberWithCommas(total)} Đ
+            </Text>
+          </View>
+          <MyButton
+            style={styles.btn}
+            textStyle={{
+              fontFamily: 'Linotte-Bold',
+              color: colors.white,
+              fontSize: 16,
+              textTransform: 'uppercase',
+              paddingBottom: 3,
+            }}
+            title={'Mua hàng (' + data.length + ')'}
+            onPress={() => nav.navigate('OrderConfirm')}
+          />
+        </>
+      )}
     </View>
   );
 }

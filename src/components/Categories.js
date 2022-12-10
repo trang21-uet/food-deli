@@ -3,14 +3,19 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { CATEGORIES } from '../constants/Data';
 import { useNavigation } from '@react-navigation/native';
 
-const Item = ({ title, url }) => {
+const Item = ({ title, url, id }) => {
   const nav = useNavigation();
 
   return (
     <TouchableOpacity
       style={styles.item}
       activeOpacity={0.8}
-      onPress={() => nav.navigate('SearchCategory', { name: title })}
+      onPress={() =>
+        nav.navigate('SearchCategory', {
+          id,
+          name: title,
+        })
+      }
     >
       <View style={styles.itemContainerImage}>
         <Image source={url} style={styles.image} resizeMode='contain' />

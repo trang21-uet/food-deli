@@ -1,30 +1,44 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import Rate from '../../../components/Rate';
+import { Datediff } from '../../../constants/function';
 
-const ItemComment = () => {
+const ItemComment = ({ message, rate, user, time }) => {
   return (
-    <View style={{ marginBottom: 15 }}>
+    <View
+      style={{
+        marginBottom: 15,
+        marginHorizontal: 12,
+      }}
+    >
       <View style={styles.container}>
         <View style={styles.containerLeft}>
           <Image
             style={styles.image}
-            source={require('../../../assets/images/profile.jpg')}
+            source={{ uri: user.thumbnail }}
             resizeMode='stretch'
           />
           <View>
-            <Text style={{ fontFamily: 'Linotte-SemiBold' }}>Chương Lê</Text>
-            <Rate size={16} numberRate={3} />
+            <Text style={{ fontFamily: 'Linotte-SemiBold' }}>
+              {user.fullName}
+            </Text>
+            <Rate size={16} numberRate={Math.floor(rate * 10) / 10} />
           </View>
         </View>
         <View style={styles.containerRight}>
-          <Text style={{ color: 'gray' }}>1 ngày trước</Text>
+          <Text style={{ color: 'gray' }}>{Datediff(time)}</Text>
         </View>
       </View>
-      <Text>
-        Nếu ai theo dõi nations league thì những đội nào thuộc châu âu có phong
-        độ ko tốt đều thể hiện gần như là rõ rồi.
-      </Text>
+      <Text style={{ color: 'gray' }}>{message}</Text>
+      <View
+        style={{
+          width: '90%',
+          alignSelf: 'center',
+          borderBottomColor: '#e1e1e1',
+          borderBottomWidth: 2,
+          marginTop: 15,
+        }}
+      ></View>
     </View>
   );
 };

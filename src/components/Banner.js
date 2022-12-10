@@ -28,15 +28,16 @@ const Banner = () => {
           marginVertical={10}
           style={{
             backgroundColor: 'red',
-            paddingHorizontal: 20,
             paddingVertical: 5,
+            alignItems: 'center',
           }}
         >
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
               color: 'white',
               borderRadius: 5,
+              marginBottom: 3,
             }}
           >
             Khám phá ngay

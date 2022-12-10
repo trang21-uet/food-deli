@@ -1,8 +1,14 @@
 import { ScrollView, View } from 'react-native';
-import React, { useState } from 'react';
-import { CategoriesBar, ItemRestaurant, SearchBar } from '../../components';
+import React, { useEffect, useState } from 'react';
+import {
+  CategoriesBar,
+  ItemRestaurant,
+  Loading,
+  SearchBar,
+} from '../../components';
+import { host } from '../../constants/Data';
 
-const data = [
+const cate = [
   {
     id: 1,
     title: 'Phổ biến',
@@ -43,24 +49,39 @@ const data = [
 
 export default function RestaurantList() {
   const [indexCategory, setIndexCatgory] = useState(0);
-  return (
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const request = async () => {
+    try {
+      const response = await fetch(host + '/api/restaurant');
+      const json = await response.json();
+
+      setData(json);
+      setLoading(false);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <View style={{ flex: 1 }}>
       <SearchBar title='Nhập tên nhà hàng' />
       <View>
         <CategoriesBar
-          listItem={data}
+          listItem={cate}
           categoryActive={indexCategory}
           changeCategory={setIndexCatgory}
         />
       </View>
       <ScrollView>
-        <ItemRestaurant />
-        <ItemRestaurant />
-        <ItemRestaurant />
-        <ItemRestaurant />
-        <ItemRestaurant />
-        <ItemRestaurant />
-        <ItemRestaurant />
+        {data.map((item, index) => (
+          <ItemRestaurant key={index} {...item} />
+        ))}
       </ScrollView>
     </View>
   );

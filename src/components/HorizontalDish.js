@@ -1,10 +1,20 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Materialicons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import Card from './Card';
+import numberWithCommas from '../constants/function';
+import Rate from './Rate';
 
-export default function HorizontalDish() {
+export default function HorizontalDish({
+  id,
+  name,
+  restaurant,
+  description,
+  price,
+  oldPrice,
+  images,
+}) {
   const nav = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -12,29 +22,65 @@ export default function HorizontalDish() {
   return (
     <Card
       borderRadius={10}
-      marginVertical={10}
-      marginHorizontal={10}
-      style={styles.container}
-      onPress={() => nav.navigate('DishDetail')}
+      marginVertical={5}
+      style={{ ...styles.container, height: 120 }}
+      onPress={() =>
+        nav.navigate('DishDetail', { id, restaurantId: restaurant.id })
+      }
     >
       <Image
         style={styles.image}
-        source={require('../assets/images/garan.jpg')}
+        source={{ uri: images[0].url }}
         resizeMode={'cover'}
       />
       <View style={styles.info}>
         <View>
-          <Text style={styles.name}>Gà chiên xù</Text>
-          <Text style={styles.restaurant}>KFC Hà Đông</Text>
-        </View>
-        <View style={styles.footer}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.price}>40.000 Đ</Text>
-            <Text style={styles.oldprice}>50.000 Đ</Text>
-          </View>
+          <Text style={styles.name}>{name}</Text>
           <View style={styles.box}>
-            <FontAwesome name='star' size={16} color='#ffa41c' />
-            <Text style={{ color: colors.gray }}> 4.5</Text>
+            {restaurant.name && (
+              <Materialicons
+                name='storefront'
+                size={20}
+                color={colors.gray}
+                activeOpacity={0.8}
+                style={{ marginRight: 3 }}
+              />
+            )}
+            {restaurant.name ? (
+              <Text style={styles.restaurant} numberOfLines={1}>
+                {restaurant.name}
+              </Text>
+            ) : (
+              <Text
+                numberOfLines={2}
+                style={{ ...styles.restaurant, maxWidth: '80%' }}
+              >
+                {description}
+              </Text>
+            )}
+          </View>
+        </View>
+        {restaurant.name && (
+          <View style={styles.box}>
+            {restaurant.numberRate !== 0 && (
+              <Rate
+                size={15}
+                numberRate={Math.floor(restaurant.rate * 10) / 10}
+              />
+            )}
+            <Text style={{ color: colors.gray, fontSize: 13 }}>
+              {restaurant.numberRate === 0
+                ? 'Chưa có đánh giá'
+                : '(' + Math.floor(restaurant.rate * 10) / 10 + ')'}
+            </Text>
+          </View>
+        )}
+        <View style={styles.footer}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <Text style={styles.price}>{numberWithCommas(price) + ' Đ'}</Text>
+            <Text style={styles.oldPrice}>
+              {numberWithCommas(oldPrice) + ' Đ'}
+            </Text>
           </View>
         </View>
       </View>
@@ -51,7 +97,7 @@ const getStyles = colors =>
       overflow: 'hidden',
     },
     name: {
-      fontSize: 18,
+      fontSize: 17,
       fontFamily: 'Linotte-SemiBold',
     },
     price: {
@@ -60,24 +106,22 @@ const getStyles = colors =>
       color: '#fc795d',
       fontFamily: 'Linotte-SemiBold',
     },
-    oldprice: {
+    oldPrice: {
       fontSize: 12,
       color: colors.gray,
-
       textDecorationLine: 'line-through',
     },
     box: {
       flexDirection: 'row',
-      alignItems: 'center',
-      marginLeft: 5,
+      alignItems: 'flex-end',
     },
     restaurant: {
       color: colors.gray,
+      // maxWidth: '90%',
     },
     footer: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
     },
     info: {
       flexDirection: 'column',

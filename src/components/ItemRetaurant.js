@@ -5,7 +5,15 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import MyIcon from './MyIcon';
 import Card from './Card';
 
-const ItemRestaurant = () => {
+const ItemRestaurant = ({
+  id,
+  name,
+  description,
+  backgroundImage,
+  address,
+  rate,
+  numberRate,
+}) => {
   const nav = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -13,25 +21,37 @@ const ItemRestaurant = () => {
   return (
     <Card
       borderRadius={10}
-      marginHorizontal={5}
+      marginHorizontal={10}
       marginVertical={5}
       style={styles.container}
-      onPress={() => nav.navigate('Restaurant', { name: 'KFC Hà Đông' })}
+      onPress={() => nav.navigate('Restaurant', { id })}
     >
       <Image
         style={styles.image}
-        source={require('../assets/images/background2.jpg')}
+        source={{ uri: backgroundImage }}
         resizeMode={'cover'}
       />
       <View style={styles.info}>
-        <Text style={styles.name}>KFC Hà Đông</Text>
-        <Text style={styles.address}>
+        <Text style={styles.name}>{name}</Text>
+        <Text numberOfLines={2} style={styles.address}>
           <MyIcon name='location-outline' size={18} />
-          Số 44, Xuân Thủy, Cầu giấy, Hà Nội
+          {address.detail +
+            ', ' +
+            address.awards +
+            ', ' +
+            address.district +
+            ', ' +
+            address.province}
         </Text>
         <View style={styles.footer}>
-          <Rate size={16} numberRate={4} />
-          <Text style={{ color: 'gray' }}>(100 đánh giá)</Text>
+          {numberRate > 0 ? (
+            <>
+              <Rate size={16} numberRate={Math.floor(rate * 10) / 10} />
+              <Text style={{ color: 'gray' }}>({numberRate} đánh giá)</Text>
+            </>
+          ) : (
+            <Text style={{ color: 'gray' }}>(Chưa có đánh giá)</Text>
+          )}
         </View>
       </View>
     </Card>
@@ -53,16 +73,17 @@ const getStyles = colors =>
     },
     info: {
       flex: 1,
+      height: 120,
       paddingHorizontal: 10,
-      justifyContent: 'space-between',
+      justifyContent: 'center',
     },
     name: {
-      fontSize: 18,
+      fontSize: 17,
       fontFamily: 'Linotte-SemiBold',
     },
     address: {
       color: colors.gray,
-
+      fontSize: 13,
       marginBottom: 15,
     },
     footer: {

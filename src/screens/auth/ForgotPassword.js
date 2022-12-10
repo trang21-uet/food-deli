@@ -42,7 +42,6 @@ export default function ForgotPassword() {
         }),
       });
       const data = await response.text();
-      console.info(data);
     } catch (error) {
       console.log(error);
     }

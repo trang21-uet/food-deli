@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   MainScreen,
@@ -26,6 +26,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BackButton } from './src/components';
 import { setCustomText } from 'react-native-global-props';
 import { NavContext } from './src/providers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,13 @@ export default function App() {
     'Linotte-Heavy': require('./src/assets/font/Linotte/Linotte-Heavy.ttf'),
     'Linotte-SemiBold': require('./src/assets/font/Linotte/Linotte-SemiBold.ttf'),
   });
+
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.setItem('cart', JSON.stringify(null));
+    };
+    init();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {

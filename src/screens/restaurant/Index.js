@@ -7,9 +7,16 @@ import {
   Dimensions,
   TextInput,
 } from 'react-native';
-import React, { useState } from 'react';
-import { CategoriesBar, HorizontalDish, MyIcon } from '../../components';
-import { useTheme } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {
+  CategoriesBar,
+  HorizontalDish,
+  Loading,
+  MyIcon,
+} from '../../components';
+import { useRoute, useTheme } from '@react-navigation/native';
+import { host } from '../../constants/Data';
+import Review from './review';
 
 const width = Dimensions.get('window').width;
 const categories = [
@@ -55,16 +62,35 @@ export default function Restaurant() {
   const [indexCategory, setIndexCatgory] = useState(0);
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { id } = useRoute().params;
 
-  return (
+  const request = async () => {
+    try {
+      const response = await fetch(host + '/api/restaurant?id=' + id);
+      const json = await response.json();
+
+      setData(json);
+      setLoading(false);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <ScrollView>
       <Image
         style={styles.background}
-        source={require('../../assets/images/background2.jpg')}
+        source={{ uri: data.backgroundImage }}
         resizeMode='cover'
       />
       <View style={styles.containerHeader}>
-        <Text style={styles.name}>KFC Hà Đông</Text>
+        <Text style={styles.name}>{data.name}</Text>
         <View style={styles.rating}>
           <MyIcon
             style={{ paddingRight: 5 }}
@@ -72,15 +98,26 @@ export default function Restaurant() {
             size={18}
             color='#ffa41c'
           />
-          <Text>4.9 (223 lượt đánh giá)</Text>
+          <Text style={{ fontSize: 13, color: colors.gray }}>
+            4.9 (223 lượt đánh giá)
+          </Text>
         </View>
-        <Text numberOfLines={1} style={{ maxWidth: '90%' }}>
+        <Text
+          numberOfLines={2}
+          style={{ maxWidth: '100%', fontSize: 13, color: colors.gray }}
+        >
           <MyIcon
             style={{ paddingRight: 5 }}
             name='location-outline'
             size={18}
           />
-          43 Nguyễn Thái Học, Đống Đa, Hà Nội
+          {data.address.detail +
+            ', ' +
+            data.address.awards +
+            ', ' +
+            data.address.district +
+            ', ' +
+            data.address.province}
         </Text>
       </View>
       <View style={styles.searchbar}>
@@ -93,14 +130,12 @@ export default function Restaurant() {
         categoryActive={indexCategory}
         changeCategory={setIndexCatgory}
       />
-      <View style={{ marginTop: 10 }}>
-        <HorizontalDish />
-        <HorizontalDish />
-        <HorizontalDish />
-        <HorizontalDish />
-        <HorizontalDish />
-        <HorizontalDish />
+      <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
+        {data.foods.map((item, index) => (
+          <HorizontalDish key={index} {...item} restaurant={{ id }} />
+        ))}
       </View>
+      <Review data={data.reviews} />
     </ScrollView>
   );
 }
