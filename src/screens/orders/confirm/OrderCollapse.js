@@ -1,8 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Materialicons from 'react-native-vector-icons/MaterialIcons';
+import numberWithCommas from '../../../constants/function';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const OrderCollapse = () => {
+const OrderCollapse = ({ foods, name, setData, data }) => {
+  const price = foods
+    .map(({ food }) => food.price)
+    .reduce((prev, cur) => prev + cur);
+
   return (
     <View style={styles.order}>
       <View style={styles.orderleft}>
@@ -21,20 +27,31 @@ const OrderCollapse = () => {
               marginLeft: 5,
             }}
           >
-            KFC Hà Đông
+            {name}
           </Text>
         </View>
-        <Text
-          style={{
-            fontSize: 13,
-            color: 'gray',
-          }}
-        >
-          Gà chiên xù, Bánh cá,...(10 sản phẩm)
+        <Text>
+          <Text
+            style={{
+              fontSize: 13,
+              color: 'gray',
+            }}
+          >
+            {foods.map(({ food }) => food.name).join(', ')}
+          </Text>
+          <Text style={{ color: 'gray' }}> ({foods.length} sản phẩm)</Text>
         </Text>
-        <Text style={{ fontSize: 16 }}>500.000 Đ</Text>
+        <Text style={{ fontSize: 16 }}>{numberWithCommas(price)} Đ</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={async () => {
+          setData(data.filter(item => item.name !== name));
+          await AsyncStorage.setItem(
+            'cart',
+            JSON.stringify(data.filter(item => item.name !== name))
+          );
+        }}
+      >
         <Text style={styles.title}>Xoá</Text>
       </TouchableOpacity>
     </View>

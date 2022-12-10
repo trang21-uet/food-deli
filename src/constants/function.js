@@ -36,3 +36,19 @@ export function Datediff(string) {
   } else time += second + ' giây trước';
   return time;
 }
+
+export const getDate = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+  let hour = today.getHours() + 1;
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
+  if (hour > 12) hour = hour - 12 + ':00 PM | ';
+  else hour = hour + ':00 AM | ';
+
+  const formattedToday = hour + '' + dd + '/' + mm + '/' + yyyy;
+  return formattedToday;
+};

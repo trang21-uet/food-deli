@@ -36,7 +36,7 @@ export default function Home() {
       const json = await response.json();
 
       setNewData(json);
-      // console.log(json.length);
+      // console.log(json);
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +59,7 @@ export default function Home() {
     <ScrollView style={{ flex: 1 }}>
       <Banner />
       <View style={{ marginTop: -45 }}>
-        <SearchBar title={'Tìm kiếm món ăn'} />
+        <SearchBar title='Tìm kiếm món ăn' />
       </View>
       <Categories />
       <View style={{ marginTop: 10 }}>

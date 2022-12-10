@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useTheme } from '@react-navigation/native';
 import { useState } from 'react';
 import {
@@ -8,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { BackButton, MyButton, MyInput } from '../../components';
+import { host } from '../../constants/Data';
 import { useNav } from '../../providers';
 import { emailRegex, errorMsg, getStyles } from './Constant';
 
@@ -59,10 +61,13 @@ export default function Register() {
             password,
           }),
         });
-        const data = await response.text();
-        ToastAndroid.show('Đăng ký tài khoản thành công', 2000);
-        nav.navigate('Home');
-        setScreen('Home');
+        if (response.ok) {
+          const data = await response.text();
+          await AsyncStorage.setItem('user', data);
+          ToastAndroid.show('Đăng ký tài khoản thành công', 2000);
+          nav.navigate('Home');
+          setScreen('Home');
+        }
       } catch (error) {
         console.log(error);
       }

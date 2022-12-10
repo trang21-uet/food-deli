@@ -2,8 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Rating = () => {
-  const [defaultRating, setDefaultRating] = useState(1);
+const Rating = ({ rate, setRate }) => {
   const [maxRating, setmaxRating] = useState([1, 2, 3, 4, 5]);
   return (
     <View style={styles.container}>
@@ -11,12 +10,12 @@ const Rating = () => {
         <TouchableOpacity
           activeOpacity={0.8}
           key={key}
-          onPress={() => setDefaultRating(item)}
+          onPress={() => setRate(item)}
         >
-          {item <= defaultRating ? (
-            <MaterialIcons size={50} color='#ffa41c' name='star' />
+          {item <= rate ? (
+            <MaterialIcons size={40} color='#ffa41c' name='star' />
           ) : (
-            <MaterialIcons size={50} color='gray' name='star-border' />
+            <MaterialIcons size={40} color='gray' name='star-border' />
           )}
         </TouchableOpacity>
       ))}

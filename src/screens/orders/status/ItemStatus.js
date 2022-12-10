@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MyIcon } from '../../../components';
+import { Datediff } from '../../../constants/function';
 export const windowWidth = Dimensions.get('window').width;
 
-const ItemStatus = ({ title, description, active, time }) => {
+const ItemStatus = ({ status, time, active }) => {
   return (
     <View
       style={
@@ -29,18 +29,20 @@ const ItemStatus = ({ title, description, active, time }) => {
           <MyIcon
             style={{ marginVertical: 5 }}
             size={20}
-            color={active == true ? '#69c157' : '#b6b5b1'}
+            color={active ? '#69c157' : '#b6b5b1'}
             name='md-checkmark-circle-sharp'
           />
         </View>
         <View style={{ paddingLeft: 10, maxWidth: '90%' }}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text style={styles.title}>{status.name}</Text>
+          <Text style={styles.description}>{status.description}</Text>
         </View>
       </View>
-      <View style={{ right: 0, position: 'absolute', top: -10 }}>
-        <Text style={styles.description}>10:00 PM</Text>
-      </View>
+      {time && (
+        <View style={{ right: 0, position: 'absolute', top: -8 }}>
+          <Text style={styles.description}>{Datediff(time)}</Text>
+        </View>
+      )}
     </View>
   );
 };

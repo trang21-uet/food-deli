@@ -53,7 +53,7 @@ export default function ForgotPassword() {
       try {
         await request();
         ToastAndroid.show('Kiểm tra email để lấy mã xác thực', 2000);
-        nav.navigate('Otp', { params: { username, request } });
+        nav.navigate('Otp', { username, request });
       } catch (error) {
         console.log(error);
       }

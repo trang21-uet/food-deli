@@ -4,6 +4,8 @@ import { Keyboard, Text, ToastAndroid, View } from 'react-native';
 import { BackButton, MyButton, MyInput } from '../../components';
 import { host } from '../../constants/Data';
 import { errorMsg, getStyles } from './Constant';
+import { useNav } from '../../providers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ResetPassword() {
   const { colors } = useTheme();
@@ -13,6 +15,7 @@ export default function ResetPassword() {
   const [errors, setErrors] = useState([]);
   const [password, setPassword] = useState('');
   const [repass, setRepass] = useState('');
+  const { setScreen } = useNav();
 
   const validate = () => {
     const error = [];
@@ -43,10 +46,12 @@ export default function ResetPassword() {
             reset_password_token: token,
           },
           body: JSON.stringify({
-            username: username,
+            username,
+            password,
           }),
         });
         const data = await response.text();
+        await AsyncStorage.setItem('user', data);
         ToastAndroid.show('Đăng nhập thành công', 2000);
         setScreen('Home');
         nav.navigate('Home');

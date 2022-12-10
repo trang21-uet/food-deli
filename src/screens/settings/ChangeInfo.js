@@ -5,18 +5,17 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { MyButton, MyInput } from '../../../components';
+import { MyButton, MyInput } from '../../components';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
-import { host } from '../../../constants/Data';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { host } from '../../constants/Data';
 
-export default function CreateAddress() {
+export default function ChangeInfo() {
   const { colors } = useTheme();
   const nav = useNavigation();
   const { onGoBack } = useRoute().params;
-  // console.log(useRoute().params);
+  console.log(useRoute().params);
 
   const [data, setData] = useState({
     province: '',
@@ -25,22 +24,12 @@ export default function CreateAddress() {
     detail: '',
     active: false,
   });
-  const [user, setUser] = useState();
-
-  const getUser = async () => {
-    const info = await AsyncStorage.getItem('user');
-    setUser(JSON.parse(info));
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const onSubmit = async () => {
     try {
       const response = await fetch(host + '/api/address', {
         method: 'POST',
-        body: JSON.stringify({ ...data, userId: user.userId }),
+        body: JSON.stringify({ ...data, userId: 1 }),
         headers: {
           'Content-Type': 'application/json',
         },

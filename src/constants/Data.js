@@ -42,4 +42,4 @@ export const CATEGORIES = [
 ];
 
 export const host =
-  'https://799d-2402-800-61ae-e652-571-ded2-4ad0-b616.ap.ngrok.io';
+  'https://2055-2402-800-61ae-e652-571-ded2-4ad0-b616.ap.ngrok.io';

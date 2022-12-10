@@ -21,6 +21,10 @@ import {
   SearchCategory,
   AddressManager,
   CreateAddress,
+  EditAddress,
+  ChangeAddress,
+  Intro,
+  Help,
 } from './src';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BackButton } from './src/components';
@@ -154,6 +158,7 @@ export default function App() {
             <Stack.Screen
               name='OrderDetail'
               options={{
+                headerShown: true,
                 title: 'Thông tin đơn hàng',
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
@@ -191,11 +196,56 @@ export default function App() {
               name='CreateAddress'
               options={{
                 title: 'Tạo địa chỉ mới',
+                headerShown: 'true',
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
                 headerTitleStyle: { fontFamily: 'Linotte-Bold' },
               }}
               component={CreateAddress}
+            />
+            <Stack.Screen
+              name='EditAddress'
+              options={{
+                title: 'Thay đổi địa chỉ',
+                headerShown: 'true',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={EditAddress}
+            />
+            <Stack.Screen
+              name='ChangeAddress'
+              options={{
+                title: 'Thay đổi địa chỉ',
+                headerShown: 'true',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={ChangeAddress}
+            />
+            <Stack.Screen
+              name='Intro'
+              options={{
+                title: 'Giới thiệu ứng dụng',
+                headerShown: 'true',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={Intro}
+            />
+            <Stack.Screen
+              name='Help'
+              options={{
+                title: 'Hướng dẫn',
+                headerShown: 'true',
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerTitleStyle: { fontFamily: 'Linotte-Bold' },
+              }}
+              component={Help}
             />
           </Stack.Navigator>
         </KeyboardAvoidingView>

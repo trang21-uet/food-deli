@@ -2,16 +2,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 import Home from './home';
 import Search from './search';
-import Settings from './settings';
+import Settings, { Intro, Help, ChangeInfo } from './settings';
 import { Cart, CouponList, RestaurantList } from './food';
 import { Login, Register, ForgotPassword, ResetPassword, Otp } from './auth';
-import { AddressManager, CreateAddress } from './address';
+import { AddressManager, CreateAddress, EditAddress } from './address';
 import Detail from './detail';
 import {
   OrderDetail,
   OrderManagement,
   OrderStatus,
   OrderConfirm,
+  ChangeAddress,
 } from './orders';
 import Restaurant from './restaurant';
 import Nav from './Nav';
@@ -45,10 +46,15 @@ export {
   ForgotPassword,
   ResetPassword,
   Otp,
+  Intro,
+  Help,
   Restaurant,
   AddressManager,
   CreateAddress,
+  ChangeAddress,
+  EditAddress,
   Detail,
+  ChangeInfo,
   OrderDetail,
   OrderConfirm,
   OrderManagement,

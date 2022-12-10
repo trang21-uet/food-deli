@@ -5,50 +5,40 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MyButton, MyInput } from '../../../components';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import { host } from '../../../constants/Data';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function CreateAddress() {
+export default function EditAddress() {
   const { colors } = useTheme();
+  const { province, district, detail, awards, active, id, onGoBack } =
+    useRoute().params;
   const nav = useNavigation();
-  const { onGoBack } = useRoute().params;
-  // console.log(useRoute().params);
 
   const [data, setData] = useState({
-    province: '',
-    awards: '',
-    district: '',
-    detail: '',
-    active: false,
+    province,
+    awards,
+    district,
+    detail,
+    active: active || false,
+    addressId: id,
   });
-  const [user, setUser] = useState();
-
-  const getUser = async () => {
-    const info = await AsyncStorage.getItem('user');
-    setUser(JSON.parse(info));
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const onSubmit = async () => {
     try {
+      console.log(data);
       const response = await fetch(host + '/api/address', {
-        method: 'POST',
-        body: JSON.stringify({ ...data, userId: user.userId }),
+        method: 'PUT',
+        body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(data);
       const msg = await response.text();
-      console.log(msg);
-      ToastAndroid.show('Thêm địa chỉ mới thành công', 2000);
+      // console.log(msg);
+      ToastAndroid.show('Thay đổi địa chỉ thành công', 2000);
       onGoBack();
       nav.goBack();
     } catch (error) {}

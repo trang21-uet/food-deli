@@ -6,54 +6,47 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React, { useEffect, useState } from 'react';
+import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import { MyButton } from '../../../components';
-
-const data = [
-  {
-    id: 1,
-    description: 'Số 2, ngách 37, Thổ Quan, Đống Đa, Hà Nội',
-    address: 'Phường Thổ Quan, Quận Đống Đa, Hà Nội',
-    default: false,
-  },
-  {
-    id: 2,
-    description: 'Số 2, ngách 37, Thổ Quan, Đống Đa, Hà Nội',
-    address: 'Phường Thổ Quan, Quận Đống Đa, Hà Nội',
-    default: true,
-  },
-  {
-    id: 3,
-    description: 'Số 2, ngách 37, Thổ Quan, Đống Đa, Hà Nội',
-    address: 'Phường Thổ Quan, Quận Đống Đa, Hà Nội',
-    default: false,
-  },
-  {
-    id: 4,
-    description: 'Số 2, ngách 37, Thổ Quan, Đống Đa, Hà Nội',
-    address: 'Phường Thổ Quan, Quận Đống Đa, Hà Nội',
-    default: false,
-  },
-  {
-    id: 5,
-    description: 'Số 2, ngách 37, Thổ Quan, Đống Đa, Hà Nội',
-    address: 'Phường Thổ Quan, Quận Đống Đa, Hà Nội',
-    default: false,
-  },
-];
+import { Loading, MyButton, MyIcon } from '../../../components';
+import { host } from '../../../constants/Data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddressManager() {
   const nav = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const [address, setAddress] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  return (
-    <ScrollView style={styles.container}>
-      {data.map((element, index) => (
-        <Item key={index} item={element} />
-      ))}
+  const getAddress = async () => {
+    try {
+      const info = await AsyncStorage.getItem('user');
+      const id = JSON.parse(info).userId;
+      const response = await fetch(host + '/api/user/' + id + '/address');
+      const json = await response.json();
+      console.log(json);
+      setAddress(json);
+      setLoading(false);
+    } catch (error) {
+      console.info(error);
+    }
+  };
+
+  useEffect(() => {
+    getAddress();
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <>
+      <ScrollView style={styles.container}>
+        {address.map((item, index) => (
+          <Item key={index} {...item} setAddress={setAddress} />
+        ))}
+      </ScrollView>
       <MyButton
         style={styles.btn}
         title='Thêm địa chỉ mới'
@@ -63,39 +56,75 @@ export default function AddressManager() {
           color: 'white',
           textTransform: 'uppercase',
         }}
+        onPress={() => {
+          nav.navigate('CreateAddress', { onGoBack: getAddress });
+        }}
       />
-    </ScrollView>
+    </>
   );
 }
 
-const Item = ({ item }) => {
+const Item = ({
+  province,
+  district,
+  awards,
+  detail,
+  active,
+  id,
+  setAddress,
+}) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const nav = useNavigation();
+
+  const getAddress = async () => {
+    try {
+      const info = await AsyncStorage.getItem('user');
+      const id = JSON.parse(info).userId;
+      const response = await fetch(host + '/api/user/' + id + '/address');
+      const json = await response.json();
+      // console.info(json);
+      setAddress(json);
+    } catch (error) {}
+  };
+
   return (
     <View style={styles.containerItem}>
-      <View>
-        <View>
-          <Text style={{ maxWidth: '90%' }}>
-            <Text>Mô tả: </Text>
-            {item.description}
+      {active && (
+        <View style={styles.addressDefault}>
+          <Text style={{ ...styles.title, color: 'gray', fontSize: 12 }}>
+            MẶC ĐỊNH
           </Text>
-          <Text>{item.address}</Text>
         </View>
-        {item.default ? (
-          <View style={styles.addressDefault}>
-            <Text style={{ ...styles.title, color: 'gray', fontSize: 12 }}>
-              MẶC ĐỊNH
-            </Text>
-          </View>
-        ) : (
-          <></>
-        )}
+      )}
+      <View>
+        <Text style={{ fontSize: 15 }}>Chi tiết: {detail}</Text>
+
+        <Text style={{ fontSize: 15 }}>
+          {[awards, district, province].join(', ')}
+        </Text>
       </View>
       <TouchableOpacity
-        onPress={() => Alert.alert('hello')}
+        onPress={() => {
+          nav.navigate('EditAddress', {
+            province,
+            district,
+            detail,
+            awards,
+            active,
+            id,
+            onGoBack: getAddress,
+          });
+        }}
         activeOpacity={0.8}
+        style={{ position: 'absolute', bottom: 5, right: 15 }}
       >
-        <MaterialIcons name='edit-location' size={25} color={'#fc795d'} />
+        <Feather
+          name='edit-3'
+          size={22}
+          color={'#fc795d'}
+          style={{ textDecorationLine: 'underline' }}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -117,7 +146,9 @@ const getStyles = colors =>
       marginVertical: 2,
     },
     addressDefault: {
-      alignSelf: 'flex-start',
+      position: 'absolute',
+      top: 12,
+      right: 12,
       borderWidth: 1,
       paddingHorizontal: 10,
       borderRadius: 10,
@@ -132,5 +163,6 @@ const getStyles = colors =>
       borderRadius: 5,
       marginTop: 10,
       marginHorizontal: 10,
+      marginBottom: 10,
     },
   });

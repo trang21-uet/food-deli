@@ -10,7 +10,8 @@ import {
 import { BackButton, MyButton, MyInput } from '../../components';
 import { useNav } from '../../providers';
 import { emailRegex, errorMsg, getStyles } from './Constant';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import { host } from '../../constants/Data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login() {
   const { colors } = useTheme();
@@ -51,10 +52,15 @@ export default function Login() {
             password,
           }),
         });
-        const data = await response.text();
-        ToastAndroid.show('Đăng nhập thành công', 2000);
-        setScreen('Home');
-        nav.navigate('Home');
+        // console.log(data);
+        response.status === 403 && setErrors([errorMsg.wrongInfo, errors[1]]);
+        if (response.ok) {
+          const data = await response.text();
+          await AsyncStorage.setItem('user', data);
+          ToastAndroid.show('Đăng nhập thành công', 2000);
+          setScreen('Home');
+          nav.navigate('Home');
+        }
       } catch (error) {
         console.log(error);
       }

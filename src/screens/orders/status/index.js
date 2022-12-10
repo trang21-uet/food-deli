@@ -1,62 +1,91 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ItemStatus from './ItemStatus';
-import { useNavigation, useTheme } from '@react-navigation/native';
-import { MyButton } from '../../../components';
+import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
+import { Loading, MyButton } from '../../../components';
+import { host } from '../../../constants/Data';
+import { useNav } from '../../../providers';
 
 const status = [
   {
     id: 1,
-    title: 'Chờ xác nhận',
+    name: 'Chờ xác nhận',
     description: 'Đơn hàng đang chờ cửa hàng xác nhận',
-    active: true,
   },
   {
     id: 2,
-    title: 'Đang chuẩn bị hàng',
+    name: 'Đang chuẩn bị hàng',
     description: 'Đơn hàng được xác nhận và cửa hàng đang chuẩn bị háng',
-    active: true,
   },
   {
     id: 3,
-    title: 'Gửi cho bên vận chuyển',
+    name: 'Gửi cho bên vận chuyển',
     description: 'Đơn hàng chuẩn bị xong và gửi cho bên bên vận chuyển ',
-    active: true,
   },
   {
     id: 4,
-    title: 'Đang vận chuyển',
+    name: 'Đang vận chuyển',
     description: 'Đơn hàng đang được vận chuyển tới địa chỉ của bạn',
-    active: true,
   },
   {
     id: 5,
-    title: 'Giao thành công',
+    name: 'Giao thành công',
     description: 'Đơn hàng được giao tới người dùng thành công',
-    active: false,
   },
   {
     id: 6,
-    title: 'Đánh giá',
+    name: 'Đánh giá',
     description: 'Đánh giá mức độ hài lòng của bạn đối với đơn hàng',
-    active: false,
+  },
+  {
+    id: 7,
+    name: 'Hoàn thành',
+    description: 'Đơn hàng của bạn đã hoàn thành',
   },
 ];
 
 export default function OrderStatus() {
   const { colors } = useTheme();
   const styles = getStyles(colors);
+  const { id } = useRoute().params;
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
   const nav = useNavigation();
-  return (
+  const { setScreen } = useNav();
+
+  const request = async () => {
+    try {
+      const response = await fetch(host + '/api/orders/' + id + '/statuses');
+      const json = await response.json();
+
+      setData(json);
+      setLoading(false);
+      console.log(json);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <View style={styles.container}>
-      {status.map(item => (
-        <ItemStatus
-          key={item.id}
-          title={item.title}
-          description={item.description}
-          active={item.active}
-        />
+      {data.map((item, index) => (
+        <ItemStatus key={index} {...item} active={true} />
       ))}
+      {status
+        .filter(item => {
+          return !data.map(({ status }) => status.id).includes(item.id);
+        })
+        .map((item, index) => (
+          <ItemStatus
+            key={index}
+            status={{ name: item.name, description: item.description }}
+            active={false}
+          />
+        ))}
       <MyButton
         style={styles.btn}
         title='Về trang chủ'
@@ -66,8 +95,11 @@ export default function OrderStatus() {
           color: colors.white,
           textTransform: 'uppercase',
         }}
-        onPress={() => nav.navigate('MainScreen')}
-      ></MyButton>
+        onPress={() => {
+          setScreen('Home');
+          nav.navigate('Home');
+        }}
+      />
     </View>
   );
 }

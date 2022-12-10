@@ -52,6 +52,11 @@ export default function Detail() {
     } catch (error) {}
   };
 
+  const getUserId = async () => {
+    const info = await AsyncStorage.getItem('user');
+    return JSON.parse(info).userId;
+  };
+
   const onchange = nativeEvent => {
     if (nativeEvent) {
       const slide = Math.ceil(
@@ -92,6 +97,7 @@ export default function Detail() {
         foods: [{ food: data, amount: 1 }],
       });
     }
+    console.log(current);
     await AsyncStorage.setItem('cart', JSON.stringify(current));
   };
 

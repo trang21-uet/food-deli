@@ -1,8 +1,17 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import numberWithCommas from '../../../constants/function';
 
-const ItemOrder = ({ code, restaurantName, total, state, images }) => {
+const ItemOrder = ({
+  id,
+  code,
+  restaurantName,
+  total,
+  status,
+  images,
+  price,
+}) => {
   const nav = useNavigation();
   const { colors } = useTheme();
   const styles = getStyles(colors);
@@ -11,7 +20,7 @@ const ItemOrder = ({ code, restaurantName, total, state, images }) => {
     <TouchableOpacity
       activeOpacity={0.8}
       style={styles.container}
-      onPress={() => nav.navigate('OrderDetail')}
+      onPress={() => nav.navigate('OrderDetail', { id, price })}
     >
       <Image
         style={styles.image}
@@ -21,14 +30,14 @@ const ItemOrder = ({ code, restaurantName, total, state, images }) => {
       <View style={styles.detail}>
         <View>
           <Text style={{ fontFamily: 'Linotte-SemiBold' }}>
-            Cửa hàng: {restaurantName}
+            {restaurantName}
           </Text>
           <Text numberOfLines={1} style={styles.title}>
             Mã đơn hàng: {code}
           </Text>
           <Text style={styles.title}>Số lượng: {total} món</Text>
           <View style={{ flex: 1 }}>
-            <Text style={styles.title}>Trạng thái: {state}</Text>
+            <Text style={styles.title}>Trạng thái: {status.name}</Text>
           </View>
         </View>
       </View>
@@ -40,7 +49,7 @@ const ItemOrder = ({ code, restaurantName, total, state, images }) => {
           color: colors.primary,
         }}
       >
-        200.0000 Đ
+        {numberWithCommas(price)} Đ
       </Text>
     </TouchableOpacity>
   );

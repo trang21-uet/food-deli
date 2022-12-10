@@ -6,7 +6,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import numberWithCommas from '../constants/function';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ItemOrder = ({ name, id, foods }) => {
+const ItemOrder = ({ name, id, foods, update }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   const nav = useNavigation();
@@ -30,7 +30,7 @@ const ItemOrder = ({ name, id, foods }) => {
           </View>
         </TouchableOpacity>
         {data.map((item, index) => (
-          <ItemProduct key={index} {...item} {...{ data, setData }} />
+          <ItemProduct key={index} {...item} {...{ data, setData, update }} />
         ))}
         <TouchableOpacity style={styles.pill}>
           <Text
@@ -49,7 +49,7 @@ const ItemOrder = ({ name, id, foods }) => {
   );
 };
 
-const ItemProduct = ({ amount, food, data, setData }) => {
+const ItemProduct = ({ amount, food, data, setData, update }) => {
   const { colors } = useTheme();
   const styles = getStyles(colors);
   const [quantity, setQuantity] = useState(amount);
@@ -77,7 +77,7 @@ const ItemProduct = ({ amount, food, data, setData }) => {
       current.forEach(({ foods }, i) => {
         foods.forEach((item, j) => {
           if (item.food.name === food.name) {
-            let amount = current[i].foods[j].amount--;
+            let amount = current[i].foods[j].amount;
             if (amount > 1) current[i].foods[j].amount--;
             else {
               current[i].foods.splice(j, 1);
@@ -101,59 +101,76 @@ const ItemProduct = ({ amount, food, data, setData }) => {
           source={{ uri: food.images[0].url }}
           resizeMode={'cover'}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             padding: 5,
-            backgroundColor: colors.primary,
+            // backgroundColor: colors.primary,
             borderRadius: 100,
             position: 'absolute',
             right: 0,
-            top: 0,
+            top: -5,
           }}
-          onPress={() => setData(data.filter(item => item.food.id === food.id))}
+          onPress={async () => {
+            setData(data.filter(item => item.food.id !== food.id));
+            console.log(data.filter(item => item.food.id !== food.id));
+            await AsyncStorage.setItem(
+              'cart',
+              JSON.stringify(data.filter(item => item.food.id !== food.id))
+            );
+          }}
         >
-          <MyIcon name='trash' outline size={15} color={colors.white} />
-        </TouchableOpacity>
+          <MyIcon name='trash' outline size={20} color={colors.black} />
+        </TouchableOpacity> */}
         <View style={styles.info}>
           <Text style={styles.name}>{food.name}</Text>
-          <View style={{ flex: 1, width: '100%' }}>
-            <Text numberOfLines={2} style={styles.description}>
-              {food.description}
-            </Text>
-          </View>
-
-          <Text style={styles.price}>{numberWithCommas(food.price)} Đ</Text>
-        </View>
-        <View style={{ alignItems: 'flex-end' }}>
-          <View style={styles.containerButton}>
-            <TouchableOpacity
-              style={styles.btn}
-              activeOpacity={0.6}
-              onPress={async () => {
-                setQuantity(quantity - 1);
-                await reduce();
-              }}
-            >
-              <Text style={styles.btncontent}>-</Text>
-            </TouchableOpacity>
-            <View style={{ paddingHorizontal: 8 }}>
-              <Text>{quantity}</Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <Text numberOfLines={2} style={styles.description}>
+                {food.description}
+              </Text>
+              <Text style={styles.price}>{numberWithCommas(food.price)} Đ</Text>
             </View>
+            <View style={{ alignItems: 'flex-end' }}>
+              <View style={styles.containerButton}>
+                <TouchableOpacity
+                  style={styles.btn}
+                  activeOpacity={0.6}
+                  onPress={async () => {
+                    setQuantity(quantity - 1);
+                    await reduce();
+                    update();
+                  }}
+                >
+                  <Text style={styles.btncontent}>-</Text>
+                </TouchableOpacity>
+                <View style={{ paddingHorizontal: 8 }}>
+                  <Text>{quantity}</Text>
+                </View>
 
-            <TouchableOpacity
-              style={styles.btn}
-              activeOpacity={0.6}
-              onPress={async () => {
-                setQuantity(quantity + 1);
-                await add();
-              }}
-            >
-              <Text style={styles.btncontent}>+</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btn}
+                  activeOpacity={0.6}
+                  onPress={async () => {
+                    setQuantity(quantity + 1);
+                    await add();
+                    update();
+                  }}
+                >
+                  <Text style={styles.btncontent}>+</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.total}>
+                {numberWithCommas(food.price * quantity)} Đ
+              </Text>
+            </View>
           </View>
-          <Text style={styles.total}>
-            {numberWithCommas(food.price * quantity)} Đ
-          </Text>
         </View>
       </View>
     )

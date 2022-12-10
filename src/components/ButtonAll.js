@@ -15,7 +15,7 @@ const ButtonAll = ({ title, id }) => {
         style={styles.button}
         onPress={() =>
           nav.navigate('SearchCategory', {
-            id: 9,
+            id: id,
             name: title,
           })
         }

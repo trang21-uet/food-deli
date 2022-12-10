@@ -7,7 +7,9 @@ import { Loading } from '../../../components';
 
 function OnGoingScreen({ data }) {
   return (
-    <ScrollView style={{ paddingHorizontal: 10 }}>
+    <ScrollView
+      contentContainerStyle={{ paddingHorizontal: 10, paddingBottom: 20 }}
+    >
       {data.map((item, index) => (
         <ItemOrder key={index} {...item} />
       ))}
@@ -15,14 +17,14 @@ function OnGoingScreen({ data }) {
   );
 }
 
-function CompletedScreen() {
+function CompletedScreen({ data }) {
   return (
-    <ScrollView style={{ paddingHorizontal: 10 }}>
-      {/* <ItemOrder />
-      <ItemOrder />
-      <ItemOrder />
-      <ItemOrder />
-      <ItemOrder /> */}
+    <ScrollView
+      contentContainerStyle={{ paddingHorizontal: 10, paddingBottom: 20 }}
+    >
+      {data.map((item, index) => (
+        <ItemOrder key={index} {...item} />
+      ))}
     </ScrollView>
   );
 }
@@ -37,10 +39,14 @@ export default function OrderManagement() {
     try {
       const response = await fetch(host + '/api/orders');
       const json = await response.json();
+      // console.log(json);
 
-      setOngoing(json.filter(item => item.state === 'Chờ xác nhận'));
+      setOngoing(json.filter(item => item.status.id < 7));
+      setDone(json.filter(item => item.status.id === 7));
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -55,10 +61,12 @@ export default function OrderManagement() {
         tabBarLabelStyle: { fontFamily: 'Linotte-SemiBold', fontSize: 16 },
       }}
     >
-      <Tab.Screen name='Đang giao'>
+      <Tab.Screen name='Đang xử lý'>
         {() => <OnGoingScreen data={ongoing} />}
       </Tab.Screen>
-      <Tab.Screen name='Hoàn thành' component={CompletedScreen} />
+      <Tab.Screen name='Hoàn thành'>
+        {() => <CompletedScreen data={done} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }

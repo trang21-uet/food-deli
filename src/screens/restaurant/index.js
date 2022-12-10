@@ -70,7 +70,7 @@ export default function Restaurant() {
     try {
       const response = await fetch(host + '/api/restaurant?id=' + id);
       const json = await response.json();
-
+      // console.log(json);
       setData(json);
       setLoading(false);
     } catch (error) {}

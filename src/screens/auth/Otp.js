@@ -26,13 +26,15 @@ export default function Otp() {
           otp,
         }),
       });
+      console.log(otp);
       const data = await response.text();
+      console.log(data);
       if (data === 'otp không chính xác!') {
         setError(errorMsg.wrongOtp);
       } else if (data === 'otp hết hạn!') {
         setError(errorMsg.expiredOtp);
-        // } else {
-        nav.navigate('ResetPassword', { params: { username, token: data } });
+      } else {
+        nav.navigate('ResetPassword', { username, token: data });
       }
     } catch (error) {
       console.log(error);

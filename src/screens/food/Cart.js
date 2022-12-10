@@ -50,23 +50,45 @@ export default function Cart() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
+  const [user, setUser] = useState(null);
 
-  const request = async () => {
+  const getUser = async () => {
+    const response = await AsyncStorage.getItem('user');
+    setUser(JSON.parse(response));
+  };
+
+  const getCart = async () => {
     try {
-      const response = await AsyncStorage.getItem('cart');
+      let response = await AsyncStorage.getItem('cart');
+      response = JSON.parse(response);
+      setData(response);
       // console.log(response);
-      setData(JSON.parse(response));
-      setTotal(0);
+      let total = 0;
+      response.forEach(({ foods }) => {
+        foods.forEach(({ food, amount }) => {
+          total += food.price * amount;
+        });
+      });
+      setTotal(total);
       setLoading(false);
-      // console.log(json);
     } catch (error) {}
   };
 
   useEffect(() => {
+    const request = async () => {
+      await getUser();
+      await getCart();
+    };
     request();
   }, []);
 
-  return loading || !data ? (
+  const emptyCart = () => {
+    return data.length === 0 || data.every(({ foods }) => foods.length == 0);
+  };
+
+  return !user ? (
+    <Error code='login' />
+  ) : loading || emptyCart() ? (
     <Error code='empty-cart' />
   ) : (
     <View style={{ flex: 1, paddingHorizontal: 10 }}>
@@ -84,7 +106,9 @@ export default function Cart() {
       </View>
       <ScrollView style={{ flex: 1 }}>
         {data !== null &&
-          data.map((item, index) => <ItemOrder key={index} {...item} />)}
+          data.map((item, index) => (
+            <ItemOrder key={index} {...item} update={getCart} />
+          ))}
       </ScrollView>
       {data !== null && (
         <>
@@ -109,7 +133,12 @@ export default function Cart() {
               paddingBottom: 3,
             }}
             title={'Mua hàng (' + data.length + ')'}
-            onPress={() => nav.navigate('OrderConfirm')}
+            onPress={() =>
+              nav.navigate('OrderConfirm', {
+                data,
+                price: total,
+              })
+            }
           />
         </>
       )}
